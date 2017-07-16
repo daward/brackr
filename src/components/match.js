@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _ from "lodash"
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Match extends Component {
   render() {
@@ -10,7 +11,13 @@ class Match extends Component {
     }
     if(this.props.roundOver) {
       return (
-        <div onClick={() => this.props.onClose(this.props.bracketId)}>Round Over</div>
+        <div>
+        <div>Your votes have been entered for this round</div>
+        <br/>
+        <RaisedButton 
+          onClick={() => this.props.onClose(this.props.bracketId)}
+          label="Close voting and move to next round"/>
+        </div>
       );
     }
     return (
@@ -18,10 +25,12 @@ class Match extends Component {
         Bracket: {this.props.bracketId} / Match: {this.props.matchId} <br/>
         --------------------------------
 
-        {this.props.players.map((player, i) => <span key={i}>
-          {!!i && "v."}
-          <div onClick={() => this.props.onVote(this.props.bracketId, this.props.matchId, player.seed)}>{player.data}</div>
-        </span>)}
+        {this.props.players.map((player, i) => <div key={i}>
+          {!!i && <div>v.</div>}
+          <RaisedButton 
+            onClick={() => this.props.onVote(this.props.bracketId, this.props.matchId, player.seed)}
+            label={player.data}/>
+        </div>)}
       </div>
     );
   }
