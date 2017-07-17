@@ -1,8 +1,13 @@
-const voting = (state = { round: { matches: [] }, currentMatchIndex: 0, bracketId: '' }, action) => {
+const voting = (state = { round: { matches: [] }, currentMatchIndex: 0, bracketId: '', tournamentOver: false, roundOver: false }, action) => {
+  
   switch (action.type) {
     case 'VOTE_SET':
+      let currentMatchIndex = state.currentMatchIndex + 1;
+      let roundOver = currentMatchIndex >= state.round.matches.length;
       return Object.assign({}, state, {
-        currentMatchIndex: state.currentMatchIndex + 1
+        currentMatchIndex,
+        roundOver,
+        currentMatch : state.round.matches[currentMatchIndex]
       });
 
     case 'LOADING_BRACKET':
@@ -11,9 +16,19 @@ const voting = (state = { round: { matches: [] }, currentMatchIndex: 0, bracketI
       });
 
     case 'LOAD_ROUND':
+      let round = action.response;
+      let winner, currentMatch;
+      if(round.currentRound > round.totalRounds) {
+        winner = round.matches[0].players[0];
+      } else {
+        currentMatch = round.matches[0];
+      }
       return Object.assign({}, state, {
-        round: action.response,
-        currentMatchIndex: 0
+        round,
+        currentMatchIndex: 0,
+        roundOver: false,
+        winner,
+        currentMatch
       });
     
     case 'CHANGE_BRACKET_ID':
