@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import _ from "lodash";
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import { Input, Button, Grid } from 'semantic-ui-react'
 
 class Create extends Component {
 
@@ -12,24 +11,32 @@ class Create extends Component {
   render() {
     let index = 0;
     return (
-      <div>
-        {
-          _.map(this.props.contestants, contestant => {
-            index++
-            return (<div>
-              <TextField
-              id={index.toString()}
-              key={index}
-              value={contestant}
-              hintText={`Contestant ${index}`}
-              onChange={(e) => this.checkNew(e)} />
-              <br/>
-              </div>)
-          })
-        }
-        <br />
-        <RaisedButton label="Start the voting!" onClick={() => this.props.commit(this.props.contestants)}/>
-      </div>
+      <Grid centered padded>
+        <Grid.Row stretched>
+          <Grid.Column width={4}/>
+          <Grid.Column key="1" width={4}>
+            {
+              _.map(this.props.contestants, contestant => {
+                index++
+                return (
+                  <div>
+                    <Input
+                      id={index.toString()}
+                      key={index.toString()}
+                      label={index}
+                      size="big"
+                      defaultValue={contestant}
+                      onChange={(e) => this.checkNew(e)} />
+                    <br />
+                  </div>)
+              })
+            }
+            <br />
+            <Button primary={true} onClick={() => this.props.commit(this.props.contestants)}>Start the voting!</Button>
+          </Grid.Column>
+          <Grid.Column width={4}/>
+        </Grid.Row>
+      </Grid >
     );
   }
 }

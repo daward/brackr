@@ -1,7 +1,36 @@
 import rp from 'request-promise'
 import { browserHistory } from 'react-router'
+
+import { loadRound } from '../actions/voting'
 import _ from "lodash"
 import endpoint from "./endpoint";
+
+export function recreateBracket(bracketId) {
+  return dispatch => {
+    return rp({
+      url: `${endpoint}/bracket/${bracketId}`,
+      method: "GET",
+    })
+      .then(response => JSON.parse(response).choices)
+      .then(choices => dispatch(commitBracket(choices)))
+      .catch(e => {
+        console.log(e)
+      });
+  }
+}
+
+export function rerunBracket(bracketId) {
+  return dispatch => {
+    return rp({
+      url: `${endpoint}/bracket/${bracketId}/next`,
+      method: "POST",
+      json: {}
+    })
+      .then(response => {
+        return dispatch(loadRound(bracketId));
+      });
+  }
+}
 
 export function commitBracket(contestants) {
   return dispatch => {

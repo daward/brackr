@@ -31,7 +31,7 @@ export function close(bracketId) {
     }
     return rp(options)
       .then(response => dispatch({
-          type: 'ROUND_CLOSED'
+        type: 'ROUND_CLOSED'
       }))
       .then(() => dispatch(loadRound(bracketId)))
       .catch(e => {
@@ -40,23 +40,30 @@ export function close(bracketId) {
   }
 }
 
-export function loadRound(bracketId) {
-  return dispatch => {
-    dispatch({ type: 'LOADING_BRACKET', bracketId });
-    let options = {
-      url: `${endpoint}/bracket/${bracketId}/round/current`,
-      method: "GET"
-    }
-    return rp(options)
-      .then(response => {
-        return dispatch({
-          type: 'LOAD_ROUND',
-          status: 'success',
-          response: JSON.parse(response)
-        })
-      });
+function queryRound(dispatch, bracketId, startEvent, finishEvent) {
+  dispatch({ type: startEvent, bracketId });
+  let options = {
+    url: `${endpoint}/bracket/${bracketId}/round/current`,
+    method: "GET"
   }
+  return rp(options)
+    .then(response => {
+      return dispatch({
+        type: finishEvent,
+        response: JSON.parse(response)
+      })
+    });
 };
+
+export function loadRound(bracketId) {
+  return dispatch => queryRound(dispatch, bracketId, "LOADING_ROUND", "LOAD_ROUND")
+}
+
+export function checkRound(bracketId) {
+  return dispatch => {
+    queryRound(dispatch, bracketId, "CHECKING_ROUND", "CHECK_ROUND");
+  }
+}
 
 export const bracketIdChange = (bracketId) => {
   return {

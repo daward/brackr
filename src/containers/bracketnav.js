@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import RaisedButton from 'material-ui/RaisedButton';
 import BracketNav from '../components/bracketnav'
 import { bracketIdChange } from '../actions/voting'
 

@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 const contestants = (state = { contestants: [""], isCommitting: false }, action) => {
   switch (action.type) {
     case 'CHANGE_CONTESTANT':
-      let position = action.id;
+      let position = parseInt(action.id);
       let newState = Object.assign({}, state, {
         contestants: [
           ...state.contestants
