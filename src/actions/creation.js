@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router'
 
 import { loadRound } from '../actions/voting'
 import _ from "lodash"
-import endpoint from "./endpoint";
+import { endpoint } from "../constants";
 
 export function recreateBracket(bracketId) {
   return dispatch => {

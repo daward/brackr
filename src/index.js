@@ -8,7 +8,7 @@ import thunkMiddleware from 'redux-thunk'
 
 import { createStore, applyMiddleware } from 'redux'
 import Root from './components/root'
-import 'semantic-ui-css/semantic.min.css';
+import 'semantic-ui-css/semantic.min.css'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941

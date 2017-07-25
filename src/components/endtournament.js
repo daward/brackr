@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Button, Icon, Label, Table, Grid } from 'semantic-ui-react'
 
-const EndTournament = ({ winners, onRestart, onRerun }) => {
+const EndTournament = ({ winners, admin, onRestart, onRerun }) => {
   if (!winners) {
     return (<span />);
   }
   return (
 
     <Grid textAlign="center" centered padded>
-      <Grid.Row stretched>
-        <Grid.Column width={6}>
+      <Grid.Row stretched columns={3}>
+        <Grid.Column>
           <Table>
             <Table.Header>
               <Table.Row>
@@ -28,16 +28,21 @@ const EndTournament = ({ winners, onRestart, onRerun }) => {
           </Table>
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row stretched>
+      <Grid.Row stretched columns={3}>
         <Grid.Column width={3}>
-          <Button primary={true} onClick={() => onRestart()}>
-            Start another tournament
-              </Button>
+          <Button 
+            primary 
+            content='Start another' 
+            icon='clone' 
+            onClick={() => onRestart()}/>
         </Grid.Column>
         <Grid.Column width={3}>
-          <Button primary={true} onClick={() => onRerun()}>
-            Find next best contestant
-              </Button>
+          <Button 
+            primary 
+            disabled={!admin}
+            onClick={() => onRerun()}
+            content='Next Best'
+            icon='trophy'/>
         </Grid.Column>
       </Grid.Row>
     </Grid>

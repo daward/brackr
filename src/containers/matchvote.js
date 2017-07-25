@@ -18,7 +18,8 @@ const mapStateToProps = (state, props) => {
     active: true,
     players,
     bracketId: bracketId,
-    matchId
+    matchId,
+    votingId: state.voting.votingId
   }
 }
 

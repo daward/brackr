@@ -2,17 +2,12 @@ import React, { Component } from 'react';
 import _ from "lodash"
 import { Button, Grid } from 'semantic-ui-react'
 
-const Match = ({ active, players, bracketId, matchId, onVote }) => {
+const Match = ({ active, players, bracketId, matchId, votingId, onVote }) => {
   if (!active) {
     return (<span />)
   }
   return (
     <Grid centered padded>
-      <Grid.Row>
-        <Grid.Column textAlign="center">
-          Bracket: {bracketId} / Match: {matchId}
-        </Grid.Column>
-      </Grid.Row>
       <Grid.Row>
         <Grid.Column textAlign="center">
           <Button.Group size='massive'>

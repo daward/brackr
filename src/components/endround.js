@@ -1,33 +1,58 @@
 import React, { Component } from 'react';
-import { Button, Icon, Grid } from 'semantic-ui-react'
+import { Button, Icon, Grid, Message } from 'semantic-ui-react'
 
-const closeIcon = <Icon name="forward" />;
+class EndRound extends React.Component {
 
-const EndRound = ({ active, bracketId, votes, onClose }) => {
-  if (!active) {
-    return (<span />)
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.active && nextProps.active) {
+      nextProps.pollRound(nextProps.round);
+    }
   }
-  return (
-    <Grid centered>
-      <Grid.Row stretched>
+
+  render() {
+    if (!this.props.active) {
+      return (<span />)
+    }
+
+    let content;
+    if (this.props.admin) {
+      content = (
         <Grid.Column textAlign="center">
-          <p>Your votes have been entered for this round</p>
-          <br />
-          <p>{votes} votes total have been received.</p>
-          <p>
-            <Icon name="warning" />
-            &nbsp;If this seems like too few votes, do not close the round, refresh the page and wait for more votes</p>
+          <Message icon>
+            <Icon name='warning' />
+            <Message.Content>
+              <Message.Header>{this.props.votes} votes total have been received.</Message.Header>
+              If this seems like too few votes, do not close the round, others may still be voting.
+              The page will automatically update as more users vote.
+            </Message.Content>
+          </Message>
 
           <Button
             primary={true}
-            onClick={() => onClose(bracketId)}
-            icon={closeIcon}>
-            Close voting and move to next round
-          </Button>
+            onClick={() => this.props.onClose(this.props.bracketId)}
+            content="Close voting and move to next round" />
         </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  );
+      )
+    } else {
+      content = (<Grid.Column textAlign="center">
+        <Message icon>
+          <Icon name='check' />
+          <Message.Content>
+            <Message.Header>Thanks for voting! </Message.Header>
+            Votes are still being collected.  This page will update automatically when the next round starts.
+          </Message.Content>
+        </Message>
+      </Grid.Column>);
+    }
+
+    return (
+      <Grid centered padded>
+        <Grid.Row stretched columns={3}>
+          {content}
+        </Grid.Row>
+      </Grid>
+    );
+  }
 }
 
 export default EndRound;

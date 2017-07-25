@@ -4,21 +4,10 @@ import { Provider } from 'react-redux'
 import BracketNav from '../containers/bracketnav'
 import Contestants from '../containers/contestants'
 import VotingPage from '../components/votingpage'
-import { loadRound, checkRound } from '../actions/voting'
+import { loadRound } from '../actions/voting'
 import { Router, Route, browserHistory } from 'react-router'
 
 const Root = ({ store }) => {
-  store.subscribe(() => {
-    let refresh = () => {
-      if (store.getState().voting.roundOver) {
-        if (store.getState().totalVotes.nextUpdate < Date.now()) {
-          store.dispatch(checkRound(store.getState().voting.bracketId))
-        }
-        setTimeout(refresh, 10000);
-      };
-    }
-    refresh();
-  })
   return (
     <Provider store={store}>
       <Router history={browserHistory} >

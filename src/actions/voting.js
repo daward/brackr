@@ -1,5 +1,5 @@
 import rp from 'request-promise'
-import endpoint from './endpoint'
+import { endpoint } from '../constants'
 
 export function vote(bracketId, matchId, winningSeed) {
   return dispatch => {

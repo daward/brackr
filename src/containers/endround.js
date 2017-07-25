@@ -1,8 +1,10 @@
 import { connect } from 'react-redux'
 import EndRoundComponent from '../components/endround'
+import { pollEndRound } from '../actions/pollendround'
 import { close } from '../actions/voting'
 import { withRouter } from 'react-router'
 import _ from 'lodash'
+import {START_TIMER} from 'redux-timer-middleware';
 
 const mapStateToProps = (state, props) => {
   // this is probably where we can subscribe to two states
@@ -11,15 +13,20 @@ const mapStateToProps = (state, props) => {
   return {
     active: state.voting.roundOver,
     bracketId: props.params.filter,
-    votes: state.totalVotes.votes
+    votes: state.totalVotes.votes,
+    admin: state.voting.admin,
+    round: state.voting.currentRound
   }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
   let bracketId = props.params.filter;
   return {
-    onClose: (bracketId) => {
+    onClose: () => {
       dispatch(close(bracketId))
+    },
+    pollRound: (round) => {
+      dispatch(pollEndRound(bracketId, round));
     }
   }
 }

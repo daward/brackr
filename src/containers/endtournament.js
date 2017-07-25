@@ -5,7 +5,8 @@ import { withRouter } from 'react-router'
 
 const mapStateToProps = (state, props) => {
   return {
-    winners: state.voting.winners
+    winners: state.voting.winners,
+    admin: state.voting.admin
   }
 }
 
