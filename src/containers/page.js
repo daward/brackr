@@ -1,16 +1,17 @@
 import { connect } from 'react-redux'
-import TopMenuComponent from '../components/topmenu'
+import PageComponent from '../components/page'
 
 const mapStateToProps = (state) => {
   return {
     votingId: state.voting.votingId,
+    title: state.voting.title,
     currentRound: state.voting.currentRound,
     totalRounds: state.voting.totalRounds
   }
 }
-const TopMenu = connect(
+const Page = connect(
   mapStateToProps
-)(TopMenuComponent)
+)(PageComponent)
 
-export default TopMenu
+export default Page
 

@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
-import { Button, Icon, Grid, Message } from 'semantic-ui-react'
+import { Button, Icon, Grid, Message, Modal, Header } from 'semantic-ui-react'
+import Page from '../containers/page'
 
 class EndRound extends React.Component {
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.active && nextProps.active) {
-      nextProps.pollRound(nextProps.round);
+  constructor(props) {
+    super();
+    if (props && props.pollRound && props.round) {
+      props.pollRound(props.round);
     }
   }
 
-  render() {
-    if (!this.props.active) {
-      return (<span />)
-    }
+  componentWillReceiveProps(nextProps) {
+    nextProps.pollRound(nextProps.round);
+  }
 
+  render() {
     let content;
     if (this.props.admin) {
       content = (
-        <Grid.Column textAlign="center">
+        <Grid.Column textAlign="center" mobile={16} tablet={10} computer={6}>
           <Message icon>
             <Icon name='warning' />
             <Message.Content>
@@ -27,14 +28,25 @@ class EndRound extends React.Component {
             </Message.Content>
           </Message>
 
-          <Button
-            primary={true}
-            onClick={() => this.props.onClose(this.props.bracketId)}
-            content="Close voting and move to next round" />
+          <Modal
+            trigger={<Button primary={true} content="Close voting and move to next round" />}
+            size='small'
+            header="Close the voting"
+            content="Are you sure you want to close the voting in this round?"
+            actions={[
+              { key: 'no', content: 'No', color: 'red', triggerClose: true },
+              {
+                key: 'yes',
+                content: 'Yes',
+                color: 'green',
+                triggerClose: true,
+                onClick: () => this.props.onClose(this.props.bracketId)
+              },
+            ]} />
         </Grid.Column>
       )
     } else {
-      content = (<Grid.Column textAlign="center">
+      content = (<Grid.Column textAlign="center" width={6}>
         <Message icon>
           <Icon name='check' />
           <Message.Content>
@@ -46,11 +58,13 @@ class EndRound extends React.Component {
     }
 
     return (
-      <Grid centered padded>
-        <Grid.Row stretched columns={3}>
-          {content}
-        </Grid.Row>
-      </Grid>
+      <Page>
+        <Grid centered padded>
+          <Grid.Row stretched>
+            {content}
+          </Grid.Row>
+        </Grid>
+      </Page>
     );
   }
 }

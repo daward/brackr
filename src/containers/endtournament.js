@@ -1,17 +1,16 @@
 import { connect } from 'react-redux'
 import { recreateBracket, rerunBracket } from "../actions/creation"
 import EndTournamentComponent from '../components/endtournament'
-import { withRouter } from 'react-router'
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     winners: state.voting.winners,
     admin: state.voting.admin
   }
 }
 
-const mapDispatchToProps = (dispatch, props) => {
-  let bracketId = props.params.filter;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  let bracketId = ownProps.data.bracketId;
   return {
     onRestart: () => {
       dispatch(recreateBracket(bracketId))
@@ -22,10 +21,10 @@ const mapDispatchToProps = (dispatch, props) => {
   }
 }
 
-const EndTournament = withRouter(connect(
+const EndTournament = connect(
   mapStateToProps,
   mapDispatchToProps
-)(EndTournamentComponent))
+)(EndTournamentComponent)
 
 export default EndTournament
 

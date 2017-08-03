@@ -13,8 +13,8 @@ const mapDispatchToProps = dispatch => {
     onContestantChange: (id, text) => {
       dispatch(changeContestant(id, text))
     },
-    commit: (contestants) => {
-      dispatch(commitBracket(contestants))
+    commit: (title, contestants) => {
+      dispatch(commitBracket(title, contestants))
     }
   }
 }

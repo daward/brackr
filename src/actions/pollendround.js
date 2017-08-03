@@ -2,7 +2,7 @@ import { loadRound } from './voting'
 import { endpoint } from '../constants'
 import rp from 'request-promise'
 
-function getRound(bracketId) {
+export function getRound(bracketId) {
   let options = {
     url: `${endpoint}/bracket/${bracketId}/round/current`,
     method: "GET"

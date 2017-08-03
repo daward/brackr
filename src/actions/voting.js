@@ -1,5 +1,6 @@
 import rp from 'request-promise'
 import { endpoint } from '../constants'
+import browserHistory from '../history'
 
 export function vote(bracketId, matchId, winningSeed) {
   return dispatch => {
@@ -10,11 +11,7 @@ export function vote(bracketId, matchId, winningSeed) {
       json: {}
     }
     return rp(options)
-      .then(response => {
-        return dispatch({
-          type: 'VOTE_SET'
-        })
-      })
+      .then(response => dispatch({ type: 'VOTE_SET' }))
       .catch(e => {
         console.log(e);
       });
@@ -33,7 +30,7 @@ export function close(bracketId) {
       .then(response => dispatch({
         type: 'ROUND_CLOSED'
       }))
-      .then(() => dispatch(loadRound(bracketId)))
+      .then(() => browserHistory.push(`/bracket/${bracketId}`))
       .catch(e => {
         console.log(e);
       });

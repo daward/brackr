@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import _ from "lodash"
 import { Button, Grid } from 'semantic-ui-react'
+import browserHistory from "../history"
+import Page from "./page"
 
-const Match = ({ active, players, bracketId, matchId, votingId, onVote }) => {
+const Match = ({ active, roundOver, bracketId, votingId, players, matchId, onVote }) => {
+  if (roundOver) {
+    browserHistory.push(`/bracket/${bracketId}/endround`)
+  }
+
   if (!active) {
     return (<span />)
   }

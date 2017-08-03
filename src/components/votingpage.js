@@ -1,17 +1,14 @@
 import MatchVote from "../containers/matchvote"
-import EndRound from "../containers/endround"
 import EndTournament from "../containers/endtournament"
-import Menu from "../containers/topmenu"
 import React, { Component } from 'react'
+import Page from '../containers/page'
 
-const VotingPage = () => {
+const VotingPage = ({data}) => {
   return (
-    <div>
-      <Menu/>
-      <MatchVote />
-      <EndRound />
-      <EndTournament />
-    </div>);
+    <Page>
+      <MatchVote data={data}/>
+      <EndTournament data={data}/>
+    </Page>);
 }
 
 export default VotingPage;

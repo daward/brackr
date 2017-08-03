@@ -6,11 +6,10 @@ const EndTournament = ({ winners, admin, onRestart, onRerun }) => {
     return (<span />);
   }
   return (
-
     <Grid textAlign="center" centered padded>
-      <Grid.Row stretched columns={3}>
-        <Grid.Column>
-          <Table>
+      <Grid.Row stretched>
+        <Grid.Column padded stretched mobile={16} tablet={10} computer={6}>
+          <Table unstackable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell tooltip="Rank">Rank</Table.HeaderCell>
@@ -28,21 +27,21 @@ const EndTournament = ({ winners, admin, onRestart, onRerun }) => {
           </Table>
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row stretched columns={3}>
-        <Grid.Column width={3}>
-          <Button 
-            primary 
-            content='Start another' 
-            icon='clone' 
-            onClick={() => onRestart()}/>
+      <Grid.Row stretched >
+        <Grid.Column mobile={8} tablet={5} computer={3}>
+          <Button
+            primary
+            content='Start another'
+            icon='clone'
+            onClick={() => onRestart()} />
         </Grid.Column>
-        <Grid.Column width={3}>
-          <Button 
-            primary 
+        <Grid.Column mobile={8} tablet={5} computer={3}>
+          <Button
+            primary
             disabled={!admin}
             onClick={() => onRerun()}
             content='Next Best'
-            icon='trophy'/>
+            icon='trophy' />
         </Grid.Column>
       </Grid.Row>
     </Grid>

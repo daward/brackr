@@ -1,30 +1,33 @@
 import { connect } from 'react-redux'
 import Match from '../components/match'
 import { vote } from '../actions/voting'
-import { withRouter } from 'react-router'
 import _ from 'lodash'
 
-const mapStateToProps = (state, props) => {
-  let bracketId = props.params.filter;
+const mapStateToProps = (state, ownProps) => {
+  let bracketId = ownProps.data.bracketId;
   let match = state.voting.currentMatch;
   if(!match) {
     return {
-      active: false
+      active: false,
+      roundOver: state.voting.roundOver,
+      bracketId,
+      votingId: state.voting.votingId
     }
   }
   let players = _.get(match, "players", []);
   let matchId = _.get(match, "id", 0);
   return {
     active: true,
-    players,
+    roundOver: state.voting.roundOver,
     bracketId: bracketId,
-    matchId,
-    votingId: state.voting.votingId
+    votingId: state.voting.votingId,
+    players,
+    matchId
   }
 }
 
-const mapDispatchToProps = (dispatch, props) => {
-  let bracketId = props.params.filter;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  let bracketId = ownProps.data.bracketId;
   return {
     onVote: (bracketId, matchId, winningSeed) => {
       dispatch(vote(bracketId, matchId, winningSeed))
@@ -32,10 +35,10 @@ const mapDispatchToProps = (dispatch, props) => {
   }
 }
 
-const MatchVote = withRouter(connect(
+const MatchVote = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Match)) 
+)(Match)
 
 export default MatchVote
 

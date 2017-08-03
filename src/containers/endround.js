@@ -2,25 +2,23 @@ import { connect } from 'react-redux'
 import EndRoundComponent from '../components/endround'
 import { pollEndRound } from '../actions/pollendround'
 import { close } from '../actions/voting'
-import { withRouter } from 'react-router'
 import _ from 'lodash'
 import {START_TIMER} from 'redux-timer-middleware';
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state, ownProps) => {
   // this is probably where we can subscribe to two states
   // one for the overall voting total, and one for our personal votes
   // we can dispatch an action that keeps the former up-to-date 
   return {
-    active: state.voting.roundOver,
-    bracketId: props.params.filter,
+    bracketId: ownProps.data.bracketId,
     votes: state.totalVotes.votes,
     admin: state.voting.admin,
     round: state.voting.currentRound
   }
 }
 
-const mapDispatchToProps = (dispatch, props) => {
-  let bracketId = props.params.filter;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  let bracketId = ownProps.data.bracketId;
   return {
     onClose: () => {
       dispatch(close(bracketId))
@@ -31,10 +29,10 @@ const mapDispatchToProps = (dispatch, props) => {
   }
 }
 
-const EndRound = withRouter(connect(
+const EndRound =connect(
   mapStateToProps,
   mapDispatchToProps
-)(EndRoundComponent)) 
+)(EndRoundComponent)
 
 export default EndRound
 

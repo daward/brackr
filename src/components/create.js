@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _ from "lodash";
-import { Input, Button, Grid } from 'semantic-ui-react'
+import { Input, Button, Grid, Label } from 'semantic-ui-react'
+import Page from './page'
 
 class Create extends Component {
 
@@ -11,32 +12,46 @@ class Create extends Component {
   render() {
     let index = 0;
     return (
-      <Grid centered padded>
-        <Grid.Row stretched>
-          <Grid.Column width={4}/>
-          <Grid.Column key="1" width={4}>
-            {
-              _.map(this.props.contestants, contestant => {
-                index++
-                return (
-                  <div>
+      <Page title="Create a bracket">
+        <Grid centered padded doubling >
+          <Grid.Row>
+            <Grid.Column mobile={16} tablet={8} computer={4}>
+              <Input
+                ref="title"
+                fluid
+                key="Bracket Title"
+                label="Title"
+                size="medium"/>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column mobile={16} tablet={8} computer={4}>
+              {
+                _.map(this.props.contestants, contestant => {
+                  index++
+                  return (
                     <Input
+                      fluid
                       id={index.toString()}
                       key={index.toString()}
-                      label={index}
-                      size="big"
+                      label={{ content: index }}
+                      size="medium"
                       defaultValue={contestant}
-                      onChange={(e) => this.checkNew(e)} />
-                    <br />
-                  </div>)
-              })
-            }
-            <br />
-            <Button primary={true} onClick={() => this.props.commit(this.props.contestants)}>Start the voting!</Button>
-          </Grid.Column>
-          <Grid.Column width={4}/>
-        </Grid.Row>
-      </Grid >
+                      onChange={(e) => this.checkNew(e)} />)
+                })
+              }
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row stretched>
+            <Grid.Column mobile={16} tablet={8} computer={4}>
+              <Button primary={true} 
+                onClick={() => this.props.commit(
+                  this.refs.title.inputRef.value, 
+                  this.props.contestants)}>Start the voting!</Button>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid >
+      </Page>
     );
   }
 }
