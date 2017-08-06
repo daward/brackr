@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Icon, Grid, Message, Modal, Header } from 'semantic-ui-react'
+import { Button, Icon, Grid, Message, Modal } from 'semantic-ui-react'
 import Page from '../containers/page'
 
-class EndRound extends React.Component {
+class EndRound extends Component {
   constructor(props) {
     super();
     if (props && props.pollRound && props.round) {
@@ -34,12 +34,11 @@ class EndRound extends React.Component {
             header="Close the voting"
             content="Are you sure you want to close the voting in this round?"
             actions={[
-              { key: 'no', content: 'No', color: 'red', triggerClose: true },
+              { key: 'no', content: 'No', color: 'red'},
               {
                 key: 'yes',
                 content: 'Yes',
                 color: 'green',
-                triggerClose: true,
                 onClick: () => this.props.onClose(this.props.bracketId)
               },
             ]} />

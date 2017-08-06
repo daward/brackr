@@ -1,7 +1,7 @@
 const contestants = (state = { contestants: [""], isCommitting: false }, action) => {
   switch (action.type) {
     case 'CHANGE_CONTESTANT':
-      let position = parseInt(action.id);
+      let position = parseInt(action.id, 10);
       let newState = Object.assign({}, state, {
         contestants: [
           ...state.contestants

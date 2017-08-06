@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-import _ from "lodash"
-import { Button, Grid } from 'semantic-ui-react'
+import React from 'react';
+import { Button, Grid, Divider } from 'semantic-ui-react'
 import browserHistory from "../history"
-import Page from "./page"
 
 const Match = ({ active, roundOver, bracketId, votingId, players, matchId, onVote }) => {
   if (roundOver) {
@@ -13,18 +11,16 @@ const Match = ({ active, roundOver, bracketId, votingId, players, matchId, onVot
     return (<span />)
   }
   return (
-    <Grid centered padded>
+    <Grid centered>
       <Grid.Row>
-        <Grid.Column textAlign="center">
-          <Button.Group size='massive'>
-            <Button primary={true} onClick={() => onVote(bracketId, matchId, players[0].seed)}>
+        <Grid.Column textAlign="center" mobile={16} tablet={8} computer={6}>
+            <Button primary={true} onClick={() => onVote(matchId, players[0].seed)}>
               {players[0].data}
             </Button>
-            <Button.Or />
-            <Button primary={true} onClick={() => onVote(bracketId, matchId, players[1].seed)}>
+            <Divider horizontal>Or</Divider>
+            <Button primary={true} onClick={() => onVote(matchId, players[1].seed)}>
               {players[1].data}
             </Button>
-          </Button.Group>
         </Grid.Column>
       </Grid.Row>
     </Grid>

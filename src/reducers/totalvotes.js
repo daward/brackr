@@ -10,7 +10,6 @@ const totalVotes = (state = { votes: 0 }, action) => {
         // assume we start with no votes
         votes: 0
       });
-      break;
 
     // when we check a round, we want to know two things: how many votes and if the round
     // has advanced

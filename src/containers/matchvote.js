@@ -29,7 +29,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   let bracketId = ownProps.data.bracketId;
   return {
-    onVote: (bracketId, matchId, winningSeed) => {
+    onVote: (matchId, winningSeed) => {
       dispatch(vote(bracketId, matchId, winningSeed))
     }
   }

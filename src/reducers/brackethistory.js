@@ -1,5 +1,3 @@
-import _ from "lodash"
-
 const bracketHistory = (state = { brackets: [] }, action) => {
   switch (action.type) {
 
@@ -10,8 +8,6 @@ const bracketHistory = (state = { brackets: [] }, action) => {
         // assume we start with no votes
         brackets: action.brackets
       });
-      break;
-
     default:
       return state;
   }

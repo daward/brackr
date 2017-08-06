@@ -1,28 +1,17 @@
 import React, { Component } from 'react'
-import { Menu, Segment, Sidebar, Icon, Image, Container } from 'semantic-ui-react'
+import { Menu, Segment, Sidebar, Icon, Button } from 'semantic-ui-react'
 import Share from "./share"
-import Link from "./link"
 import DocumentTitle from 'react-document-title'
-import { self } from '../constants'
+import browserHistory from '../history'
 
-const buildMenuItems = ({ votingId, title, currentRound, totalRounds }) => {
-  const menuItems = []
+const buildHeading = ({ title, currentRound, totalRounds }) => {
+  let heading = title;
+
   if (currentRound && totalRounds) {
-    menuItems.push(<Menu.Item content={`Round ${currentRound} of ${totalRounds}`} />);
+    heading = `${heading} (${currentRound} of ${totalRounds})`
   }
-  if (title) {
-    menuItems.push(<Menu.Item content={title} position='right' />);
-  }
-  if (votingId) {
-    menuItems.push(
-      <Menu.Menu position='right'>
-        <Menu.Item>
-          <Share votingId={votingId} />
-        </Menu.Item>
-      </Menu.Menu>
-    );
-  }
-  return menuItems;
+
+  return heading;
 }
 
 class Page extends Component {
@@ -36,28 +25,31 @@ class Page extends Component {
     return (
       <div>
         <DocumentTitle title={`Brackr - ${this.props.title}`} />
-
-        <Sidebar.Pushable as={Segment}>
+        <Sidebar.Pushable as={Segment} basic>
           <Sidebar as={Menu} animation='uncover' width='thin' visible={visible} icon='labeled' vertical inverted>
-            <Menu.Item name='create' onClick={() => window.location = (self + "/create")}>
+            <Menu.Item name='create' onClick={() => browserHistory.push(`/create`)}>
               <Icon name='compose' />
               Create
             </Menu.Item>
-            <Menu.Item name='mybrackets' onClick={() => window.location = (self + "/brackets")}>
+            <Menu.Item name='mybrackets' onClick={() => browserHistory.push(`/brackets`)}>
               <Icon name='bookmark outline' />
               My Brackets
             </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>
-            <Segment>
-              <div>
-                <Menu size="small" borderless fixed="top">
-                  <Menu.Item icon="sidebar" onClick={this.toggleVisibility} />
-                  {buildMenuItems(this.props)}
-                </Menu>
-              </div>
+            <Menu size="mini" fluid widths={3} borderless>
+              <Menu.Menu position='left' style={{ paddingLeft: "15px" }}>
+                <Menu.Item>
+                  <Button icon="sidebar" onClick={this.toggleVisibility} />
+                </Menu.Item>
+              </Menu.Menu>
 
-            </Segment>
+              <Menu.Item header content={buildHeading(this.props)} />
+
+              <Menu.Menu position='right'>
+                <Menu.Item content={<Share votingId={this.props.votingId} />} />
+              </Menu.Menu>
+            </Menu>
             <Segment basic>
               {this.props.children}
             </Segment>

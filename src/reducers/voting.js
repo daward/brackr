@@ -39,7 +39,7 @@ const voting = (state = {
         currentRound: round.currentRound,
         totalRounds: round.totalRounds,
         votingId: round.votingId,
-        admin: state.bracketId != round.votingId,
+        admin: state.bracketId !== round.votingId,
         title: round.title
       });
 

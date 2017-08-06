@@ -1,5 +1,4 @@
 import Cookies from 'universal-cookie';
-import rp from 'request-promise'
 import P from 'bluebird'
 import { getRound } from './pollendround'
 import _ from 'lodash'

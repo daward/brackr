@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import _ from "lodash";
+import React from 'react';
 import Link from './link'
 import Share from './share'
-import { Input, Button, Grid, Divider, Segment } from 'semantic-ui-react'
+import { Segment } from 'semantic-ui-react'
 import { self } from '../constants'
 
 const BracketHistory = ({ bracket }) => {

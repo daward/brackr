@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Button, Icon, Label, Table, Grid } from 'semantic-ui-react'
+import React from 'react';
+import { Button, Table, Grid } from 'semantic-ui-react'
 
 const EndTournament = ({ winners, admin, onRestart, onRerun }) => {
   if (!winners) {
@@ -8,12 +8,12 @@ const EndTournament = ({ winners, admin, onRestart, onRerun }) => {
   return (
     <Grid textAlign="center" centered padded>
       <Grid.Row stretched>
-        <Grid.Column padded stretched mobile={16} tablet={10} computer={6}>
+        <Grid.Column stretched mobile={16} tablet={10} computer={6}>
           <Table unstackable>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell tooltip="Rank">Rank</Table.HeaderCell>
-                <Table.HeaderCell tooltip="Contestant">Contestant</Table.HeaderCell>
+                <Table.HeaderCell>Rank</Table.HeaderCell>
+                <Table.HeaderCell>Contestant</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>

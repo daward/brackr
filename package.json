@@ -15,7 +15,6 @@
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
-    "redux-timer-middleware": "^0.1.2",
     "request-promise": "^4.2.1",
     "route-parser": "0.0.5",
     "semantic-ui-css": "^2.2.11",

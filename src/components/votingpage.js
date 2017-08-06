@@ -1,6 +1,6 @@
 import MatchVote from "../containers/matchvote"
 import EndTournament from "../containers/endtournament"
-import React, { Component } from 'react'
+import React from 'react'
 import Page from '../containers/page'
 
 const VotingPage = ({data}) => {

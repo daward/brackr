@@ -2,8 +2,6 @@ import { connect } from 'react-redux'
 import EndRoundComponent from '../components/endround'
 import { pollEndRound } from '../actions/pollendround'
 import { close } from '../actions/voting'
-import _ from 'lodash'
-import {START_TIMER} from 'redux-timer-middleware';
 
 const mapStateToProps = (state, ownProps) => {
   // this is probably where we can subscribe to two states

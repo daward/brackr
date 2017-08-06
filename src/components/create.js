@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from "lodash";
-import { Input, Button, Grid, Label } from 'semantic-ui-react'
+import { Input, Button, Grid } from 'semantic-ui-react'
 import Page from './page'
 
 class Create extends Component {
@@ -15,7 +15,7 @@ class Create extends Component {
       <Page title="Create a bracket">
         <Grid centered padded doubling >
           <Grid.Row>
-            <Grid.Column mobile={16} tablet={8} computer={4}>
+            <Grid.Column mobile={14} tablet={8} computer={6}>
               <Input
                 ref="title"
                 fluid
@@ -25,7 +25,7 @@ class Create extends Component {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column mobile={16} tablet={8} computer={4}>
+            <Grid.Column mobile={14} tablet={8} computer={6}>
               {
                 _.map(this.props.contestants, contestant => {
                   index++
@@ -43,7 +43,7 @@ class Create extends Component {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row stretched>
-            <Grid.Column mobile={16} tablet={8} computer={4}>
+            <Grid.Column mobile={14} tablet={8} computer={6} textAlign="center">
               <Button primary={true} 
                 onClick={() => this.props.commit(
                   this.refs.title.inputRef.value, 

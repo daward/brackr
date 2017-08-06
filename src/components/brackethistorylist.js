@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import _ from "lodash";
-import Link from './link'
-import { Input, Button, Grid, Divider } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import Page from "./page"
 import BracketHistory from './brackethistory'
 
