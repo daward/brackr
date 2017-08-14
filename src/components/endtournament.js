@@ -1,7 +1,8 @@
 import React from 'react';
+import Link from './link';
 import { Button, Table, Grid } from 'semantic-ui-react'
 
-const EndTournament = ({ winners, admin, onRestart, onRerun }) => {
+const EndTournament = ({ winners, admin, bracketId, onRestart, onRerun }) => {
   if (!winners) {
     return (<span />);
   }
@@ -14,6 +15,7 @@ const EndTournament = ({ winners, admin, onRestart, onRerun }) => {
               <Table.Row>
                 <Table.HeaderCell>Rank</Table.HeaderCell>
                 <Table.HeaderCell>Contestant</Table.HeaderCell>
+                <Table.HeaderCell>Voting</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -21,6 +23,7 @@ const EndTournament = ({ winners, admin, onRestart, onRerun }) => {
                 <Table.Row key={index}>
                   <Table.Cell>{index + 1}</Table.Cell>
                   <Table.Cell>{row}</Table.Cell>
+                  <Table.Cell><Link toPath={`/bracket/${bracketId}/tournament/${index}`}>View</Link></Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>

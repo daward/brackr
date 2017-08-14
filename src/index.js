@@ -12,10 +12,12 @@ import Contestants from './containers/contestants'
 import VotingPage from './components/votingpage'
 import EndRound from "./containers/endround"
 import BracketHistory from "./containers/brackethistory"
+import Round from "./containers/round"
 import Router from './router'
 
 import { loadRound } from './actions/voting'
 import { loadHistory } from './actions/brackethistory'
+import { loadTournament } from './actions/tournament'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -42,19 +44,25 @@ router.add({
 router.add({
   route: "/bracket/:bracketId/endround",
   component: (data) => (<EndRound data={data} />),
-  onEnter: (data) => store.dispatch(loadRound(data.bracketId))
+  dispatchOnEnter: data => loadRound(data.bracketId)
+})
+
+router.add({
+  route: "/bracket/:bracketId/tournament/:tournamentId",
+  component: (data) => (<Round data={data} />),
+  dispatchOnEnter: data => loadTournament(data.bracketId, data.tournamentId)
 })
 
 router.add({
   route: "/bracket/:bracketId",
   component: (data) => (<VotingPage data={data} />),
-  onEnter: (data) => store.dispatch(loadRound(data.bracketId))
+  dispatchOnEnter: data => loadRound(data.bracketId)
 })
 
 router.add({
   route: "/brackets",
   component: data => (<BracketHistory/>),
-  onEnter: () => store.dispatch(loadHistory())
+  dispatchOnEnter: () => loadHistory()
 })
 
 router.renderApp(window.location.pathname); //render page the first time 

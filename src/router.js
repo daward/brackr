@@ -24,8 +24,8 @@ class Router {
     );
   }
 
-  add({ route, component, onEnter }) {
-    this.routes.push({ template: new Route(route), component, onEnter });
+  add({ route, component, onEnter, dispatchOnEnter }) {
+    this.routes.push({ template: new Route(route), component, onEnter, dispatchOnEnter });
   }
 
   route(path) {
@@ -33,6 +33,9 @@ class Router {
     let data = route.template.match(path);
     if(route.onEnter) {
       route.onEnter(data);
+    }
+    if(route.dispatchOnEnter) {
+      this.store.dispatch(route.dispatchOnEnter(data))
     }
     return route.component(data);
   }

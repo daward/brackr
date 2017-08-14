@@ -5,7 +5,8 @@ import EndTournamentComponent from '../components/endtournament'
 const mapStateToProps = (state, ownProps) => {
   return {
     winners: state.voting.winners,
-    admin: state.voting.admin
+    admin: state.voting.admin,
+    bracketId: ownProps.data.bracketId
   }
 }
 
