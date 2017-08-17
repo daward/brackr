@@ -34,6 +34,25 @@ export function rerunBracket(bracketId) {
   }
 }
 
+export function searchPhotos(photoIdx, contestant) {
+  return dispatch => {
+
+    if (contestant.imageCandidates && contestant.imageCandidates.length) {
+      dispatch({ type: 'IMAGES_SEARCHED', photoIdx, images: contestant.imageCandidates })
+    } else {
+      let options = {
+        url: `${endpoint}/images?choice=${contestant.text}`,
+        method: "GET"
+      }
+      return rp(options)
+        .then(response => {
+          let images = JSON.parse(response).images;
+          dispatch({ type: 'IMAGES_SEARCHED', photoIdx, images })
+        })
+    }
+  }
+}
+
 export function commitBracket(title, contestants) {
   return dispatch => {
     dispatch(startBracket());
