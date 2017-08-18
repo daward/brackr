@@ -21,11 +21,7 @@ const CreateEntry = ({ index, contestant, checkNew, addPhotos, setPhoto }) => {
         onChange={e => checkNew(e)}
         action={action}
         actionPosition='right' />
-      {
-        contestant.viewingImages ?
-          (<AddPhoto images={contestant.imageCandidates} setPhoto={(image) => setPhoto(index - 1, image)} />)
-          : <span />
-      }
+        <AddPhoto contestant={contestant} setPhoto={(image) => setPhoto(index - 1, image)} />
     </span>
   );
 }

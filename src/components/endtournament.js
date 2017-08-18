@@ -22,7 +22,7 @@ const EndTournament = ({ winners, admin, bracketId, onRestart, onRerun }) => {
               {winners.map((row, index) => (
                 <Table.Row key={index}>
                   <Table.Cell>{index + 1}</Table.Cell>
-                  <Table.Cell>{row}</Table.Cell>
+                  <Table.Cell>{row.text}</Table.Cell>
                   <Table.Cell><Link toPath={`/bracket/${bracketId}/tournament/${index}`}>View</Link></Table.Cell>
                 </Table.Row>
               ))}

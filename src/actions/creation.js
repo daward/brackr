@@ -61,7 +61,10 @@ export function commitBracket(title, contestants) {
       method: "POST",
       json: {
         title: title,
-        choices: _.compact(contestants)
+        choices: _.map(_.filter(contestants, contestant => contestant.text), contestant => ({
+          text: contestant.text,
+          image: contestant.image
+        }))
       }
     }
     return rp(options)

@@ -2,11 +2,17 @@ import React, { Component } from 'react'
 import _ from "lodash"
 import { Image } from 'semantic-ui-react'
 
-const AddPhoto = ({ images, setPhoto }) => {
+const AddPhoto = ({ contestant, setPhoto }) => {
+  if (!contestant.viewingImages) {
+    return <span />
+  }
   return (
     <Image.Group size='tiny'>
-      {_.map(images, image => {
-        return (<Image src={image} onClick={() => setPhoto(image)} />)
+      {_.map(contestant.imageCandidates, image => {
+        return (<Image
+          src={image}
+          onClick={() => setPhoto(image)}
+          disabled={contestant.image !== image && contestant.image} />)
       })}
     </Image.Group>
   );
