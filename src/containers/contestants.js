@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Create from '../components/create'
-import { changeContestant, saveContestantGroup, searchPhotos } from '../actions/creation'
+import { changeContestant, saveContestantGroup, searchPhotos, startContestantGroup } from '../actions/creation'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -15,8 +15,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onContestantChange: (id, text) => {
       dispatch(changeContestant(id, text))
     },
-    commit: (title, contestants) => {
-      dispatch(saveContestantGroup({ title, contestants }))
+    start: (title, contestants, contestantGroupId) => {
+      dispatch(startContestantGroup({ title, contestants, id: contestantGroupId }))
+    },
+    save: (title, contestants, contestantGroupId) => {
+      dispatch(saveContestantGroup({ title, contestants, id: contestantGroupId }))
     },
     changeTitle: (title) => dispatch({ type: "CHANGE_TITLE", title }),
     addPhotos: (photoIdx, contestant) => dispatch(searchPhotos(photoIdx, contestant)),

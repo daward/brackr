@@ -2,7 +2,7 @@ import React from 'react';
 import CreateEntry from './createentry'
 import _ from "lodash";
 
-const CreateEntrySet = ({ contestantGroupId, contestants, onContestantChange, addPhotos, setPhoto }) => {
+const CreateEntrySet = ({ contestantGroupId,   contestants, onContestantChange, addPhotos, setPhoto }) => {
   let index = 0;
   return (
     <div>

@@ -1,21 +1,11 @@
-import { endpoint } from '../constants'
-import rp from 'request-promise'
 import browserHistory from '../history'
-
-export function getRound(bracketId) {
-  let options = {
-    url: `${endpoint}/bracket/${bracketId}/round/current`,
-    method: "GET"
-  }
-  return rp(options)
-    .then(response => JSON.parse(response));
-}
+import bracketClient from '../clients/bracketclient'
 
 export function pollEndRound(bracketId, polledRound) {
   return (dispatch, getState) => {
     let refresh = () => {
       // get the round we're in from the server
-      getRound(bracketId)
+      bracketClient.getRound(bracketId)
         .then(roundData => {
           // if the round has advanced since we started polling and isn't over, we'll want to advance
           if (roundData.currentRound > getState().voting.currentRound && !roundData.results) {

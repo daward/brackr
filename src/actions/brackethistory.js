@@ -1,7 +1,7 @@
 import Cookies from 'universal-cookie';
 import P from 'bluebird'
-import { getRound } from './pollendround'
 import _ from 'lodash'
+import bracketClient from '../clients/bracketclient'
 
 const cookies = new Cookies();
 
@@ -10,7 +10,7 @@ export function loadHistory() {
     let brackets = cookies.get('recentBrackets') || [];
 
     P.map(brackets, bracketId => {
-      return getRound(bracketId).then(result => {
+      return bracketClient.getRound(bracketId).then(result => {
         result.id = bracketId
         return result;
       }).catch(e => {

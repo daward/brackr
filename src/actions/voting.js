@@ -1,16 +1,10 @@
-import rp from 'request-promise'
-import { endpoint } from '../constants'
+import bracketClient from '../clients/bracketclient'
 import browserHistory from '../history'
 
 export function vote(bracketId, matchId, winningSeed) {
   return dispatch => {
     dispatch({ type: 'SETTING_VOTE' });
-    let options = {
-      url: `${endpoint}/bracket/${bracketId}/match/${matchId}/player/${winningSeed}`,
-      method: "POST",
-      json: {}
-    }
-    return rp(options)
+    bracketClient.vote({ bracketId, matchId, winningSeed })
       .then(response => dispatch({ type: 'VOTE_SET' }))
       .catch(e => {
         console.log(e);
@@ -21,12 +15,7 @@ export function vote(bracketId, matchId, winningSeed) {
 export function close(bracketId) {
   return dispatch => {
     dispatch({ type: 'CLOSING_ROUND' });
-    let options = {
-      url: `${endpoint}/bracket/${bracketId}/round/next`,
-      method: "POST",
-      json: {}
-    }
-    return rp(options)
+    bracketClient.closeRound(bracketId)
       .then(response => dispatch({
         type: 'ROUND_CLOSED'
       }))
@@ -39,15 +28,11 @@ export function close(bracketId) {
 
 function queryRound(dispatch, bracketId, startEvent, finishEvent) {
   dispatch({ type: startEvent, bracketId });
-  let options = {
-    url: `${endpoint}/bracket/${bracketId}/round/current`,
-    method: "GET"
-  }
-  return rp(options)
+  bracketClient.getCurrentRound(bracketId)
     .then(response => {
       return dispatch({
         type: finishEvent,
-        response: JSON.parse(response)
+        response
       })
     });
 };
