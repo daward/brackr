@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CreateEntry from './createentry'
 import _ from "lodash";
 
-const CreateEntrySet = ({ contestants, onContestantChange, addPhotos, setPhoto }) => {
+const CreateEntrySet = ({ contestantGroupId, contestants, onContestantChange, addPhotos, setPhoto }) => {
   let index = 0;
   return (
     <div>
@@ -11,7 +11,9 @@ const CreateEntrySet = ({ contestants, onContestantChange, addPhotos, setPhoto }
           index++
           return (
             <CreateEntry
+              key={index.toString()}
               index={index}
+              contestantGroupId={contestantGroupId}
               contestant={contestant}
               checkNew={e => onContestantChange(e.target.id, e.target.value)}
               addPhotos={addPhotos}

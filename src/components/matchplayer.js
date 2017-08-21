@@ -1,14 +1,16 @@
 import React from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react'
 
-const MatchPlayer = ({ player }) => {
-  if(player.data.slug) {
-    return <span/>
+const MatchPlayer = ({ player, bye }) => {
+  if (player.data.slug) {
+    return <span />
   }
   return (
-    <Card color={player.winner ? "green" : "red"} fluid>
+    
+    <Card centered raised color={player.winner ? "green" : "red"}
+      style={{ backgroundColor: player.winner ? "#f2fff5" : "#fff4f4" }} >
       <Card.Content>
-        <Image floated="right" src={player.data.data.image} size='small'/>
+        <Image floated="right" src={player.data.data.image} size='tiny' />
         <Card.Header>
           {player.winner ?
             <Icon name="checkmark box" color="green" /> :
@@ -20,7 +22,7 @@ const MatchPlayer = ({ player }) => {
           Seed: {player.data.seed}
         </Card.Meta>
         <Card.Description>
-          Votes: {player.score}
+          {bye ? "Advanced due to bye" : `Votes: ${player.score}`}
         </Card.Description>
       </Card.Content>
     </Card>

@@ -11,14 +11,15 @@ export function getRound(bracketId) {
     .then(response => JSON.parse(response));
 }
 
-export function pollEndRound(bracketId, round) {
-  return dispatch => {
+export function pollEndRound(bracketId, polledRound) {
+  return (dispatch, getState) => {
     let refresh = () => {
-      // get the round we're in
+      // get the round we're in from the server
       getRound(bracketId)
         .then(roundData => {
-          if (roundData.currentRound > round || !!roundData.results) { // the round has advanced, so should we
-            browserHistory.push(`/bracket/${bracketId}`)
+          // if the round has advanced since we started polling and isn't over, we'll want to advance
+          if (roundData.currentRound > getState().voting.currentRound && !roundData.results) {
+            browserHistory.push(`/bracket/${bracketId}`);
           } else { // if it hasn't, update the votes and wait
             setTimeout(refresh, 10000);
             dispatch({ type: 'CHECK_ROUND', response: roundData });

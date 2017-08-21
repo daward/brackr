@@ -18,6 +18,7 @@ import Router from './router'
 import { loadRound } from './actions/voting'
 import { loadHistory } from './actions/brackethistory'
 import { loadTournament } from './actions/tournament'
+import { loadContestantGroup } from './actions/creation'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -42,6 +43,12 @@ router.add({
 })
 
 router.add({
+  route: "/create/:contestantGroupId",
+  component: data => (<Contestants data={data}/>),
+  dispatchOnEnter: data => loadContestantGroup({ contestantGroupId: data.contestantGroupId })
+})
+
+router.add({
   route: "/bracket/:bracketId/endround",
   component: (data) => (<EndRound data={data} />),
   dispatchOnEnter: data => loadRound(data.bracketId)
@@ -61,7 +68,7 @@ router.add({
 
 router.add({
   route: "/brackets",
-  component: data => (<BracketHistory/>),
+  component: data => (<BracketHistory />),
   dispatchOnEnter: () => loadHistory()
 })
 

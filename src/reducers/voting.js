@@ -1,3 +1,6 @@
+
+import browserHistory from '../history'
+
 const voting = (state = {
   matches: [],
   currentMatchIndex: 0,
@@ -47,6 +50,12 @@ const voting = (state = {
       return Object.assign({}, state, {
         bracketId: action.bracketId
       });
+
+    case 'ROUND_MAY_HAVE_ADVANCED':
+      if (action.currentRound > state.currentRound) {
+        browserHistory.push(`/bracket/${state.bracketId}`);
+      }
+      return state;
 
     default:
       return state;

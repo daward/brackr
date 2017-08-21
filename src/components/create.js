@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import _ from "lodash";
+import React from 'react';
 import { Input, Button, Grid } from 'semantic-ui-react'
 import Page from './page'
 import CreateEntrySet from './createentryset'
 import AddPhotos from '../containers/addphotos'
 
-const Create = ({ contestants, title, addingPhotos, onContestantChange, commit, addPhotos, setPhoto, changeTitle }) => {
+const Create = ({ contestantGroupId, contestants, title, addingPhotos, onContestantChange, commit, addPhotos, setPhoto, changeTitle }) => {
   return (
     <Page title="Create a bracket">
       <Grid centered padded doubling >
@@ -13,7 +12,7 @@ const Create = ({ contestants, title, addingPhotos, onContestantChange, commit, 
           <Grid.Column mobile={14} tablet={8} computer={6}>
             <Input
               fluid
-              key="Bracket Title"
+              key={"Bracket Title" + contestantGroupId}
               label="Title"
               size="medium"
               defaultValue={title}
@@ -26,7 +25,9 @@ const Create = ({ contestants, title, addingPhotos, onContestantChange, commit, 
               (addingPhotos ?
                 <AddPhotos /> :
                 <CreateEntrySet
+                  key="CreateEntrySet"
                   contestants={contestants}
+                  contestantGroupId={contestantGroupId}
                   onContestantChange={onContestantChange}
                   addPhotos={addPhotos}
                   setPhoto={setPhoto} />)

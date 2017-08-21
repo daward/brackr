@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Input, Button, Container } from 'semantic-ui-react'
+import React from 'react';
+import { Input } from 'semantic-ui-react'
 import AddPhoto from './addphoto'
 
-const CreateEntry = ({ index, contestant, checkNew, addPhotos, setPhoto }) => {
+const CreateEntry = ({ contestantGroupId, index, contestant, checkNew, addPhotos, setPhoto }) => {
   let action = {
-    color: contestant.image ? "green" : "",
+    color: contestant.image ? "green" : "black",
     icon: 'image',
     onClick: () => addPhotos(index - 1, contestant)
   }
@@ -14,13 +14,12 @@ const CreateEntry = ({ index, contestant, checkNew, addPhotos, setPhoto }) => {
       <Input
         fluid
         id={index.toString()}
-        key={index.toString()}
+        key={index.toString() + "" + contestantGroupId}
         label={{ content: index }}
         size="medium"
         defaultValue={contestant.text}
         onChange={e => checkNew(e)}
-        action={action}
-        actionPosition='right' />
+        action={action} />
         <AddPhoto contestant={contestant} setPhoto={(image) => setPhoto(index - 1, image)} />
     </span>
   );

@@ -1,21 +1,22 @@
 import { connect } from 'react-redux'
 import Create from '../components/create'
-import { changeContestant, commitBracket, searchPhotos } from '../actions/creation'
+import { changeContestant, saveContestantGroup, searchPhotos } from '../actions/creation'
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     contestants: state.contestants.contestants,
-    title: state.contestants.title
+    title: state.contestants.title,
+    contestantGroupId: state.contestants.contestantGroupId
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onContestantChange: (id, text) => {
       dispatch(changeContestant(id, text))
     },
     commit: (title, contestants) => {
-      dispatch(commitBracket(title, contestants))
+      dispatch(saveContestantGroup({ title, contestants }))
     },
     changeTitle: (title) => dispatch({ type: "CHANGE_TITLE", title }),
     addPhotos: (photoIdx, contestant) => dispatch(searchPhotos(photoIdx, contestant)),

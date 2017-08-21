@@ -14,7 +14,7 @@ const Match = ({ active, roundOver, bracketId, votingId, players, matchId, onVot
     <Grid centered>
       <Grid.Row>
         <Grid.Column textAlign="center" mobile={16} tablet={8} computer={6}>
-          <Card fluid onClick={() => onVote(matchId, players[0].seed)}>
+          <Card centered raised onClick={() => onVote(matchId, players[0].seed)}>
             <Card.Content>
               <Image floated="right" src={players[0].data.image} />
               <Card.Header>
@@ -23,7 +23,7 @@ const Match = ({ active, roundOver, bracketId, votingId, players, matchId, onVot
             </Card.Content>
           </Card>
           <Divider horizontal>Or</Divider>
-          <Card fluid onClick={() => onVote(matchId, players[1].seed)}>
+          <Card centered raised onClick={() => onVote(matchId, players[1].seed)}>
             <Card.Content>
               <Image floated="right" src={players[1].data.image} />
               <Card.Header>

@@ -14,7 +14,7 @@ export function recreateBracket(bracketId) {
       method: "GET",
     })
       .then(response => JSON.parse(response))
-      .then(bracket => dispatch(commitBracket(bracket.title, bracket.choices)))
+      .then(bracket => dispatch(startBracket(bracket.contestantGroupId)))
       .catch(e => {
         console.log(e)
       });
@@ -53,12 +53,26 @@ export function searchPhotos(photoIdx, contestant) {
   }
 }
 
-export function commitBracket(title, contestants) {
+export function loadContestantGroup({ contestantGroupId }) {
   return dispatch => {
-    dispatch(startBracket());
+    return rp({
+      url: `${endpoint}/contestantgroups/${contestantGroupId}`,
+      method: "GET"
+    }).then(response => {
+      dispatch({ type: "CONTESTANT_GROUP_LOADED", contestantGroup: JSON.parse(response) })
+    })
+  }
+}
+
+export function saveContestantGroup({ title, contestants, id }) {
+  return dispatch => {
+    let url = `${endpoint}/contestantgroups`
+    if (id) {
+      url = `${url}/${id}`
+    }
     let options = {
-      url: `${endpoint}/bracket`,
-      method: "POST",
+      url,
+      method: id ? "PUT" : "POST",
       json: {
         title: title,
         choices: _.map(_.filter(contestants, contestant => contestant.text), contestant => ({
@@ -66,6 +80,22 @@ export function commitBracket(title, contestants) {
           image: contestant.image
         }))
       }
+    }
+    return rp(options)
+      .then(response => {
+        let contestantGroupId = response.contestantGroupId;
+        browserHistory.push(`/create/${contestantGroupId}`)
+      })
+  }
+}
+
+export function startBracket(contestantGroupId) {
+  return dispatch => {
+    dispatch({ type: 'COMMITTING_BRACKET' });
+    let options = {
+      url: `${endpoint}/bracket`,
+      method: "POST",
+      json: { contestantGroupId }
     }
     return rp(options)
       .then(response => {
@@ -86,12 +116,6 @@ export const changeContestant = (id, text) => {
     type: 'CHANGE_CONTESTANT',
     id,
     text
-  }
-}
-
-export const startBracket = () => {
-  return {
-    type: 'COMMITTING_BRACKET'
   }
 }
 

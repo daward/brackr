@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const EndRound =connect(
+const EndRound = connect(
   mapStateToProps,
   mapDispatchToProps
 )(EndRoundComponent)
