@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const actions = {
   CHANGE_CONTESTANT: (action, state) => {
     let position = parseInt(action.id, 10);
@@ -14,6 +16,15 @@ const actions = {
     newState.contestants[position - 1].image = undefined;
     return newState;
   },
+  NEW_CONTESTANT_GROUP_STARTED: (action, state) => {
+    return Object.assign({}, state, {
+      title: "",
+      contestants: [{
+        text: ""
+      }],
+      contestantGroupId: ""
+    });
+  },
 
   SET_PHOTO: (action, state) => {
     let contestants = [
@@ -21,6 +32,9 @@ const actions = {
     ];
 
     contestants[action.photoIdx].image = action.image;
+    if (!_.includes(contestants.imageCandidates, action.image)) {
+      contestants[action.photoIdx].imageCandidates.push(action.image)
+    }
     contestants[action.photoIdx].viewingImages = false
     return Object.assign({}, state, {
       contestants

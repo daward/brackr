@@ -31,11 +31,15 @@ class Router {
   route(path) {
     let route = _.find(this.routes, route => !!route.template.match(path));
     let data = route.template.match(path);
-    if(route.onEnter) {
+    if (route.onEnter) {
       route.onEnter(data);
     }
-    if(route.dispatchOnEnter) {
-      this.store.dispatch(route.dispatchOnEnter(data))
+    if (route.dispatchOnEnter) {
+      if (Array.isArray(route.dispatchOnEnter)) {
+        route.dispatchOnEnter.map(doe => this.store.dispatch(doe(data)));
+      } else {
+        this.store.dispatch(route.dispatchOnEnter(data))
+      }
     }
     return route.component(data);
   }

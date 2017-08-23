@@ -15,5 +15,6 @@ class ImagesClient {
       })
   }
 }
+const imagesClient = new ImagesClient()
 
-export default ImagesClient
+export default imagesClient

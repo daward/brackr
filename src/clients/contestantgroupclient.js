@@ -8,7 +8,7 @@ class ContestantGroupClient {
     return rp({
       url: `${endpoint}/contestantgroups/${contestantGroupId}`,
       method: "GET"
-    })
+    }).then(response => JSON.parse(response))
   }
 
   save({ title, contestants, id }) {

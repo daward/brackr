@@ -1,13 +1,8 @@
 
-import browserHistory from '../history'
-import P from 'bluebird'
-import { loadRound } from '../actions/voting'
-import Cookies from 'universal-cookie';
-import contestantGroupClient from '../clients/contestantgroupclient'
+import { loadRound } from './voting'
+import { startContestantGroup } from './contestantgroups' 
 import bracketClient from '../clients/bracketclient'
-import ImagesClient from '../clients/imagesclient'
-const cookies = new Cookies();
-const imagesClient = new ImagesClient();
+import imagesClient from '../clients/imagesclient'
 
 export function recreateBracket(bracketId) {
   return dispatch => {
@@ -35,61 +30,4 @@ export function searchPhotos(photoIdx, contestant) {
         .then(images => dispatch({ type: 'IMAGES_SEARCHED', photoIdx, images }))
     }
   }
-}
-
-export function loadContestantGroup({ contestantGroupId }) {
-  return dispatch => {
-    contestantGroupClient.get(contestantGroupId)
-      .then(response => {
-        dispatch({ type: "CONTESTANT_GROUP_LOADED", contestantGroup: JSON.parse(response) })
-      })
-  }
-}
-
-export function startContestantGroup({ title, contestants, id }) {
-  return dispatch => {
-
-    let savePromise;
-    if (title || contestants) {
-      savePromise = contestantGroupClient.save({ title, contestants, id })
-        .then(response => response.contestantGroupId)
-    } else {
-      savePromise = P.resolve(id);
-    }
-
-    return savePromise      
-      .then(contestantGroupId => bracketClient.start(contestantGroupId))
-      .then(response => {
-        let bracketId = response.bracketId;
-        let recent = cookies.get('recentBrackets') || [];
-        recent.push(bracketId);
-        var someDate = new Date();
-        someDate.setDate(someDate.getDate() + 14);
-        cookies.set('recentBrackets', JSON.stringify(recent), { path: '/', expires: someDate });
-        browserHistory.push(`/bracket/${bracketId}`)
-        return;
-      });
-  }
-}
-
-export function saveContestantGroup({ title, contestants, id }) {
-  return dispatch => {
-    return contestantGroupClient.save({ title, contestants, id })
-      .then(response => {
-        let contestantGroupId = response.contestantGroupId;
-        browserHistory.push(`/create/${contestantGroupId}`)
-      })
-  }
-}
-
-export const changeContestant = (id, text) => {
-  return {
-    type: 'CHANGE_CONTESTANT',
-    id,
-    text
-  }
-}
-
-export const failBracket = () => {
-  return { type: 'COMMITTING_BRACKET', status: 'error', error: 'Oops' }
 }

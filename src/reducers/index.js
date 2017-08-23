@@ -3,6 +3,7 @@ import contestants from './contestants'
 import voting from './voting'
 import totalVotes from './totalvotes'
 import bracketHistory from './brackethistory'
+import contestantGroupHistory from './contestantgrouphistory'
 import tournament from './tournament'
 
 const reducers = combineReducers({
@@ -10,7 +11,8 @@ const reducers = combineReducers({
   voting,
   totalVotes,
   bracketHistory,
-  tournament
+  tournament,
+  contestantGroupHistory
 })
 
 export default reducers

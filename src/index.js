@@ -16,9 +16,10 @@ import Round from "./containers/round"
 import Router from './router'
 
 import { loadRound } from './actions/voting'
-import { loadHistory } from './actions/brackethistory'
+import { loadBracketHistory } from './actions/brackethistory'
+import { loadContestantGroupHistory } from './actions/contestantgrouphistory'
 import { loadTournament } from './actions/tournament'
-import { loadContestantGroup } from './actions/creation'
+import { loadContestantGroup, startNewContestantGroup } from './actions/contestantgroups'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -39,7 +40,8 @@ router.add({
 
 router.add({
   route: "/create",
-  component: () => (<Contestants />)
+  component: () => (<Contestants />),
+  dispatchOnEnter: data => startNewContestantGroup(data)
 })
 
 router.add({
@@ -69,7 +71,7 @@ router.add({
 router.add({
   route: "/brackets",
   component: data => (<BracketHistory />),
-  dispatchOnEnter: () => loadHistory()
+  dispatchOnEnter: [() => loadBracketHistory(), () => loadContestantGroupHistory()] 
 })
 
 router.renderApp(window.location.pathname); //render page the first time 

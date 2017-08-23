@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import Create from '../components/create'
-import { changeContestant, saveContestantGroup, searchPhotos, startContestantGroup } from '../actions/creation'
+import { changeContestant, saveContestantGroup, startContestantGroup } from '../actions/contestantgroups'
+import { searchPhotos } from '../actions/creation'
 
 const mapStateToProps = (state, ownProps) => {
   return {

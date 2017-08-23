@@ -1,13 +1,11 @@
-import Cookies from 'universal-cookie';
 import P from 'bluebird'
 import _ from 'lodash'
 import bracketClient from '../clients/bracketclient'
+import { bracketData } from '../clients/localidentifiers'
 
-const cookies = new Cookies();
-
-export function loadHistory() {
+export function loadBracketHistory() {
   return dispatch => {
-    let brackets = cookies.get('recentBrackets') || [];
+    let brackets = bracketData.getAll();
 
     P.map(brackets, bracketId => {
       return bracketClient.getRound(bracketId).then(result => {
