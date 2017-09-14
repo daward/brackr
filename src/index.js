@@ -46,32 +46,41 @@ router.add({
 
 router.add({
   route: "/create/:contestantGroupId",
-  component: data => (<Contestants data={data}/>),
+  component: data => (<Contestants data={data} />),
   dispatchOnEnter: data => loadContestantGroup({ contestantGroupId: data.contestantGroupId })
 })
 
 router.add({
   route: "/bracket/:bracketId/endround",
   component: (data) => (<EndRound data={data} />),
-  dispatchOnEnter: data => loadRound(data.bracketId)
+  dispatchOnEnter: [
+    () => dispatch => dispatch({ type: "LOAD_USER" }),
+    data => loadRound({ bracketId: data.bracketId })
+  ]
 })
 
 router.add({
   route: "/bracket/:bracketId/tournament/:tournamentId",
   component: (data) => (<Round data={data} />),
-  dispatchOnEnter: data => loadTournament(data.bracketId, data.tournamentId)
+  dispatchOnEnter: [
+    () => dispatch => dispatch({ type: "LOAD_USER" }),
+    data => loadTournament(data)
+  ]
 })
 
 router.add({
   route: "/bracket/:bracketId",
   component: (data) => (<VotingPage data={data} />),
-  dispatchOnEnter: data => loadRound(data.bracketId)
+  dispatchOnEnter: [
+    () => dispatch => dispatch({ type: "LOAD_USER" }),
+    data => loadRound({ bracketId: data.bracketId })
+  ]
 })
 
 router.add({
   route: "/brackets",
   component: data => (<BracketHistory />),
-  dispatchOnEnter: [() => loadBracketHistory(), () => loadContestantGroupHistory()] 
+  dispatchOnEnter: [() => loadBracketHistory(), () => loadContestantGroupHistory()]
 })
 
 router.renderApp(window.location.pathname); //render page the first time 

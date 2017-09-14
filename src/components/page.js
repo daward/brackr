@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Menu, Segment, Sidebar, Icon, Button } from 'semantic-ui-react'
+import { Menu, Segment, Sidebar, Button } from 'semantic-ui-react'
 import Share from "./share"
 import DocumentTitle from 'react-document-title'
-import browserHistory from '../history'
+import Login from '../containers/login'
+import PageSidebar from './pagesidebar'
 
 const buildHeading = ({ title, currentRound, totalRounds }) => {
   let heading = title;
@@ -20,33 +21,27 @@ class Page extends Component {
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   render() {
-
     const { visible } = this.state
     return (
       <div>
         <DocumentTitle title={`Brackr - ${this.props.title}`} />
         <Sidebar.Pushable as={Segment} basic>
-          <Sidebar as={Menu} animation='uncover' width='thin' visible={visible} icon='labeled' vertical inverted>
-            <Menu.Item name='create' onClick={() => browserHistory.push(`/create`)}>
-              <Icon name='compose' />
-              Create
-            </Menu.Item>
-            <Menu.Item name='mybrackets' onClick={() => browserHistory.push(`/brackets`)}>
-              <Icon name='bookmark outline' />
-              My Brackets
-            </Menu.Item>
-          </Sidebar>
+          <PageSidebar visible={visible} />
           <Sidebar.Pusher>
-            <Menu size="mini" fluid widths={3} borderless>
-              <Menu.Menu position='left' style={{ paddingLeft: "15px" }}>
+            <Menu size="tiny" fluid borderless>
+              {/* Hamburger menu */}
+              <Menu.Menu>
                 <Menu.Item>
                   <Button icon="sidebar" onClick={this.toggleVisibility} />
                 </Menu.Item>
               </Menu.Menu>
 
-              <Menu.Item header content={buildHeading(this.props)} />
+              <Menu.Menu position='left'>
+                <Menu.Item header content={buildHeading(this.props)} />
+              </Menu.Menu>
 
               <Menu.Menu position='right'>
+                <Menu.Item content={<Login />} position="left" />
                 <Menu.Item content={<Share votingId={this.props.votingId} />} />
               </Menu.Menu>
             </Menu>

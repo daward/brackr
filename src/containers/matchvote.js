@@ -6,12 +6,12 @@ import _ from 'lodash'
 const mapStateToProps = (state, ownProps) => {
   let bracketId = ownProps.data.bracketId;
   let match = state.voting.currentMatch;
-  if(!match) {
+  if (!match) {
     return {
       active: false,
       roundOver: state.voting.roundOver,
       bracketId,
-      votingId: state.voting.votingId
+      userId: state.currentUser.id
     }
   }
   let players = _.get(match, "players", []);
@@ -20,7 +20,7 @@ const mapStateToProps = (state, ownProps) => {
     active: true,
     roundOver: state.voting.roundOver,
     bracketId: bracketId,
-    votingId: state.voting.votingId,
+    userId: state.currentUser.id,
     players,
     matchId
   }
@@ -29,8 +29,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   let bracketId = ownProps.data.bracketId;
   return {
-    onVote: (matchId, winningSeed) => {
-      dispatch(vote(bracketId, matchId, winningSeed))
+    onVote: ({ matchId, winningSeed, userId }) => {
+      dispatch(vote({ bracketId, matchId, winningSeed, userId }))
     }
   }
 }

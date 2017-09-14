@@ -30,12 +30,13 @@ const actions = {
     let contestants = [
       ...state.contestants
     ];
+    let contestant = contestants[action.photoIdx || state.photoIdx];
+    contestant.image = action.image;
 
-    contestants[action.photoIdx].image = action.image;
-    if (!_.includes(contestants.imageCandidates, action.image)) {
-      contestants[action.photoIdx].imageCandidates.push(action.image)
+    if (!_.includes(contestant.imageCandidates, action.image)) {
+      contestant.imageCandidates.push(action.image)
     }
-    contestants[action.photoIdx].viewingImages = false
+    contestant.viewingImages = false
     return Object.assign({}, state, {
       contestants
     });
@@ -61,11 +62,13 @@ const actions = {
     let contestants = [
       ...state.contestants
     ];
+    let photoIdx = action.photoIdx || state.photoIdx;
 
-    contestants[action.photoIdx].imageCandidates = action.images;
-    contestants[action.photoIdx].viewingImages = true
+    contestants[photoIdx].imageCandidates = action.images;
+    contestants[photoIdx].viewingImages = true
     return Object.assign({}, state, {
       contestants,
+      photoIdx: photoIdx
     });
   }
 
@@ -76,6 +79,7 @@ const contestants = (state = {
   contestants: [{
     text: ""
   }],
+  photoIdx: 0,
   contestantGroupId: ""
 }, action) => {
 

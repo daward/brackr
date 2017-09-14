@@ -2,7 +2,7 @@ import React from 'react';
 import Link from './link';
 import { Button, Table, Grid } from 'semantic-ui-react'
 
-const EndTournament = ({ winners, admin, bracketId, onRestart, onRerun }) => {
+const EndTournament = ({ winners, admin, bracketId, userId, onRestart, onRerun }) => {
   if (!winners) {
     return (<span />);
   }
@@ -36,13 +36,13 @@ const EndTournament = ({ winners, admin, bracketId, onRestart, onRerun }) => {
             primary
             content='Start another'
             icon='clone'
-            onClick={() => onRestart()} />
+            onClick={() => onRestart(userId)} />
         </Grid.Column>
         <Grid.Column mobile={8} tablet={5} computer={3}>
           <Button
             primary
             disabled={!admin}
-            onClick={() => onRerun()}
+            onClick={() => onRerun(userId)}
             content='Next Best'
             icon='trophy' />
         </Grid.Column>

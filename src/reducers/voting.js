@@ -1,5 +1,3 @@
-import browserHistory from '../history'
-
 const voting = (state = {
   matches: [],
   currentMatchIndex: 0,

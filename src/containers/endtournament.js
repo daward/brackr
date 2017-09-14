@@ -6,18 +6,19 @@ const mapStateToProps = (state, ownProps) => {
   return {
     winners: state.voting.winners,
     admin: state.voting.admin,
-    bracketId: ownProps.data.bracketId
+    bracketId: ownProps.data.bracketId,
+    userId: state.currentUser.id
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   let bracketId = ownProps.data.bracketId;
   return {
-    onRestart: () => {
-      dispatch(recreateBracket(bracketId))
+    onRestart: (userId) => {
+      dispatch(recreateBracket({ bracketId, userId }))
     },
-    onRerun: () => {
-      dispatch(rerunBracket(bracketId))
+    onRerun: (userId) => {
+      dispatch(rerunBracket({ bracketId, userId }))
     }
   }
 }

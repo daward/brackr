@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from './link'
-import Share from './share'
 import { Segment } from 'semantic-ui-react'
 import { self } from '../constants'
 

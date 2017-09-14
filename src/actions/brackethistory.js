@@ -3,12 +3,12 @@ import _ from 'lodash'
 import bracketClient from '../clients/bracketclient'
 import { bracketData } from '../clients/localidentifiers'
 
-export function loadBracketHistory() {
+export function loadBracketHistory(userId) {
   return dispatch => {
     let brackets = bracketData.getAll();
 
     P.map(brackets, bracketId => {
-      return bracketClient.getRound(bracketId).then(result => {
+      return bracketClient.getRound({ bracketId, userId }).then(result => {
         result.id = bracketId
         return result;
       }).catch(e => {

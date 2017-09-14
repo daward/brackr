@@ -4,21 +4,27 @@ import _ from 'lodash'
 
 class ContestantGroupClient {
 
-  get(contestantGroupId) {
+  get({ contestantGroupId, userId }) {
     return rp({
+      headers: {
+        "X-User-ID": userId
+      },
       url: `${endpoint}/contestantgroups/${contestantGroupId}`,
       method: "GET"
     }).then(response => JSON.parse(response))
   }
 
-  save({ title, contestants, id }) {
+  save({ title, contestants, id, userId }) {
     let url = `${endpoint}/contestantgroups`
     if (id) {
       url = `${url}/${id}`
-    } 
+    }
     let options = {
       url,
       method: id ? "PUT" : "POST",
+      headers: {
+        "X-User-ID": userId
+      },
       json: {
         title: title,
         choices: _.map(_.filter(contestants, contestant => contestant.text), contestant => ({

@@ -3,12 +3,12 @@ import _ from 'lodash'
 import contestantGroupClient from '../clients/contestantgroupclient'
 import { contestantGroupData } from '../clients/localidentifiers'
 
-export function loadContestantGroupHistory() {
+export function loadContestantGroupHistory(userId) {
   return dispatch => {
     let contestantGroupIds = contestantGroupData.getAll();
 
     P.map(contestantGroupIds, contestantGroupId => {
-      return contestantGroupClient.get(contestantGroupId).then(result => {
+      return contestantGroupClient.get({ contestantGroupId, userId }).then(result => {
         result.id = contestantGroupId
         return result;
       })

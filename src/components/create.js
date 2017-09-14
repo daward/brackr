@@ -3,7 +3,7 @@ import { Input, Button, Grid } from 'semantic-ui-react'
 import Page from './page'
 import CreateEntrySet from './createentryset'
 
-const Create = ({ contestantGroupId, contestants, title, onContestantChange, save, start, addPhotos, setPhoto, changeTitle }) => {
+const Create = ({ contestantGroupId, contestants, title, userId, onContestantChange, save, start, addPhotos, changeTitle }) => {
   return (
     <Page title="Create a bracket">
       <Grid centered padded doubling >
@@ -25,24 +25,27 @@ const Create = ({ contestantGroupId, contestants, title, onContestantChange, sav
               contestants={contestants}
               contestantGroupId={contestantGroupId}
               onContestantChange={onContestantChange}
-              addPhotos={addPhotos}
-              setPhoto={setPhoto} />
+              addPhotos={addPhotos} />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row stretched>
           <Grid.Column mobile={7} tablet={4} computer={3} textAlign="center">
             <Button primary={true}
-              onClick={() => save(
+              onClick={() => save({
                 title,
                 contestants,
-                contestantGroupId)}>Save</Button>
+                contestantGroupId,
+                userId
+              })}>Save</Button>
           </Grid.Column>
           <Grid.Column mobile={7} tablet={4} computer={3} textAlign="center">
             <Button primary={true}
-              onClick={() => start(
+              onClick={() => start({
                 title,
                 contestants,
-                contestantGroupId)}>Start the voting!</Button>
+                contestantGroupId,
+                userId
+              })}>Start the voting!</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid >

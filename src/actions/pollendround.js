@@ -1,11 +1,11 @@
 import browserHistory from '../history'
 import bracketClient from '../clients/bracketclient'
 
-export function pollEndRound(bracketId, polledRound) {
+export function pollEndRound({ bracketId, polledRound, userId }) {
   return (dispatch, getState) => {
     let refresh = () => {
       // get the round we're in from the server
-      bracketClient.getRound(bracketId)
+      bracketClient.getRound({ bracketId, userId })
         .then(roundData => {
           // if the round has advanced since we started polling and isn't over, we'll want to advance
           if (roundData.currentRound > getState().voting.currentRound && !roundData.results) {

@@ -6,12 +6,12 @@ class EndRound extends Component {
   constructor(props) {
     super();
     if (props && props.pollRound && props.round) {
-      props.pollRound(props.round);
+      props.pollRound({ round: props.round, userId: props.userId });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    nextProps.pollRound(nextProps.round);
+    nextProps.pollRound({ round: nextProps.round, userId: nextProps.userId });
   }
 
   render() {
@@ -34,12 +34,12 @@ class EndRound extends Component {
             header="Close the voting"
             content="Are you sure you want to close the voting in this round?"
             actions={[
-              { key: 'no', content: 'No', color: 'red'},
+              { key: 'no', content: 'No', color: 'red' },
               {
                 key: 'yes',
                 content: 'Yes',
                 color: 'green',
-                onClick: () => this.props.onClose(this.props.bracketId)
+                onClick: () => this.props.onClose({ bracketId: this.props.bracketId, userId: this.props.userId })
               },
             ]} />
         </Grid.Column>

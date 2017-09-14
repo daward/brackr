@@ -4,9 +4,9 @@ import contestantGroupClient from '../clients/contestantgroupclient'
 import bracketClient from '../clients/bracketclient'
 import { contestantGroupData, bracketData } from '../clients/localidentifiers'
 
-export function loadContestantGroup({ contestantGroupId }) {
+export function loadContestantGroup({ contestantGroupId, userId }) {
   return dispatch => {
-    contestantGroupClient.get(contestantGroupId)
+    contestantGroupClient.get({ contestantGroupId, userId })
       .then(contestantGroup => {
         dispatch({ type: "CONTESTANT_GROUP_LOADED", contestantGroup })
       })
@@ -19,9 +19,9 @@ export function startNewContestantGroup() {
   }
 }
 
-export function saveContestantGroup({ title, contestants, id }) {
+export function saveContestantGroup({ title, contestants, id, userId }) {
   return dispatch => {
-    return contestantGroupClient.save({ title, contestants, id })
+    return contestantGroupClient.save({ title, contestants, id, userId })
       .then(response => {
         let contestantGroupId = response.contestantGroupId;
         contestantGroupData.set(contestantGroupId);
@@ -30,19 +30,19 @@ export function saveContestantGroup({ title, contestants, id }) {
   }
 }
 
-export function startContestantGroup({ title, contestants, id }) {
+export function startContestantGroup({ title, contestants, id, userId }) {
   return dispatch => {
 
     let savePromise;
     if (title || contestants) {
-      savePromise = contestantGroupClient.save({ title, contestants, id })
+      savePromise = contestantGroupClient.save({ title, contestants, id, userId })
         .then(response => response.contestantGroupId)
     } else {
       savePromise = P.resolve(id);
     }
 
     return savePromise
-      .then(contestantGroupId => bracketClient.start(contestantGroupId))
+      .then(contestantGroupId => bracketClient.start({ contestantGroupId, userId }))
       .then(response => {
         let bracketId = response.bracketId;
         bracketData.set(bracketId);

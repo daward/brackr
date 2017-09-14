@@ -1,10 +1,11 @@
 import bracketClient from '../clients/bracketclient'
 import browserHistory from '../history'
+import { userData } from '../clients/userdata';
 
-export function vote(bracketId, matchId, winningSeed) {
+export function vote({ bracketId, matchId, winningSeed, userId }) {
   return dispatch => {
     dispatch({ type: 'SETTING_VOTE' });
-    bracketClient.vote({ bracketId, matchId, winningSeed })
+    bracketClient.vote({ bracketId, matchId, winningSeed, userId })
       .then(response => dispatch({ type: 'VOTE_SET' }))
       .catch(e => {
         console.log(e);
@@ -12,10 +13,10 @@ export function vote(bracketId, matchId, winningSeed) {
   }
 };
 
-export function close(bracketId) {
+export function close({ bracketId, userId }) {
   return dispatch => {
     dispatch({ type: 'CLOSING_ROUND' });
-    bracketClient.closeRound(bracketId)
+    bracketClient.closeRound({ bracketId, userId })
       .then(response => dispatch({
         type: 'ROUND_CLOSED'
       }))
@@ -26,9 +27,9 @@ export function close(bracketId) {
   }
 }
 
-function queryRound(dispatch, bracketId, startEvent, finishEvent) {
+function queryRound({ dispatch, bracketId, startEvent, finishEvent, userId }) {
   dispatch({ type: startEvent, bracketId });
-  bracketClient.getCurrentRound(bracketId)
+  return bracketClient.getCurrentRound({ bracketId, userId })
     .then(response => {
       return dispatch({
         type: finishEvent,
@@ -37,13 +38,20 @@ function queryRound(dispatch, bracketId, startEvent, finishEvent) {
     });
 };
 
-export function loadRound(bracketId) {
-  return dispatch => queryRound(dispatch, bracketId, "LOADING_ROUND", "LOAD_ROUND")
+export function loadRound({ bracketId, userId }) {
+  return dispatch => {
+    userId = userId || userData.get().id;
+    return queryRound({
+      dispatch, bracketId, startEvent: "LOADING_ROUND", finishEvent: "LOAD_ROUND", userId
+    })
+  };
 }
 
-export function checkRound(bracketId) {
+export function checkRound({ bracketId, userId }) {
   return dispatch => {
-    queryRound(dispatch, bracketId, "CHECKING_ROUND", "CHECK_ROUND");
+    return queryRound({
+      dispatch, bracketId, startEvent: "CHECKING_ROUND", finishEvent: "CHECK_ROUND", userId
+    });
   }
 }
 

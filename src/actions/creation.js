@@ -1,27 +1,34 @@
 
 import { loadRound } from './voting'
-import { startContestantGroup } from './contestantgroups' 
+import { startContestantGroup } from './contestantgroups'
 import bracketClient from '../clients/bracketclient'
 import imagesClient from '../clients/imagesclient'
 
-export function recreateBracket(bracketId) {
+export function recreateBracket({ bracketId, userId }) {
   return dispatch => {
-    bracketClient.getBracket(bracketId)
-      .then(bracket => dispatch(startContestantGroup({ id: bracket.contestantGroupId })))
+    bracketClient.getBracket({ bracketId, userId })
+      .then(bracket => dispatch(startContestantGroup({ id: bracket.contestantGroupId, userId })))
       .catch(e => {
         console.log(e)
       });
   }
 }
 
-export function rerunBracket(bracketId) {
+export function rerunBracket({ bracketId, userId }) {
   return dispatch => {
-    bracketClient.rerun(bracketId)
-      .then(() => dispatch(loadRound(bracketId)));
+    bracketClient.rerun({ bracketId, userId })
+      .then(() => dispatch(loadRound({ bracketId, userId })));
   }
 }
 
-export function searchPhotos(photoIdx, contestant) {
+export function searchCurrent({ searchTerm }) {
+  return dispatch => {
+    imagesClient.get(searchTerm)
+      .then(images => dispatch({ type: 'IMAGES_SEARCHED', images }))
+  }
+}
+
+export function searchPhotos({ photoIdx, contestant }) {
   return dispatch => {
     if (contestant.imageCandidates && contestant.imageCandidates.length) {
       dispatch({ type: 'IMAGES_SEARCHED', photoIdx, images: contestant.imageCandidates })

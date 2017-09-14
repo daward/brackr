@@ -2,11 +2,11 @@ import React from 'react';
 import { Input } from 'semantic-ui-react'
 import AddPhoto from './addphoto'
 
-const CreateEntry = ({ contestantGroupId, index, contestant, checkNew, addPhotos, setPhoto }) => {
+const CreateEntry = ({ contestantGroupId, index, contestant, userId, checkNew, addPhotos }) => {
   let action = {
     color: contestant.image ? "green" : "black",
     icon: 'image',
-    onClick: () => addPhotos(index - 1, contestant)
+    onClick: () => addPhotos({ photoIdx: index - 1, contestant })
   }
 
   return (
@@ -20,7 +20,8 @@ const CreateEntry = ({ contestantGroupId, index, contestant, checkNew, addPhotos
         defaultValue={contestant.text}
         onChange={e => checkNew(e)}
         action={action} />
-        <AddPhoto contestant={contestant} setPhoto={(image) => setPhoto(index - 1, image)} />
+
+      <AddPhoto contestant={contestant} />
     </span>
   );
 }

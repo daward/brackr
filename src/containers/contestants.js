@@ -7,7 +7,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     contestants: state.contestants.contestants,
     title: state.contestants.title,
-    contestantGroupId: state.contestants.contestantGroupId
+    contestantGroupId: state.contestants.contestantGroupId,
+    userId: state.currentUser.id
   }
 }
 
@@ -16,15 +17,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onContestantChange: (id, text) => {
       dispatch(changeContestant(id, text))
     },
-    start: (title, contestants, contestantGroupId) => {
-      dispatch(startContestantGroup({ title, contestants, id: contestantGroupId }))
+    start: ({ title, contestants, contestantGroupId, userId }) => {
+      dispatch(startContestantGroup({ title, contestants, id: contestantGroupId, userId }))
     },
-    save: (title, contestants, contestantGroupId) => {
-      dispatch(saveContestantGroup({ title, contestants, id: contestantGroupId }))
+    save: ({ title, contestants, contestantGroupId, userId }) => {
+      dispatch(saveContestantGroup({ title, contestants, id: contestantGroupId, userId }))
     },
     changeTitle: (title) => dispatch({ type: "CHANGE_TITLE", title }),
-    addPhotos: (photoIdx, contestant) => dispatch(searchPhotos(photoIdx, contestant)),
-    setPhoto: (photoIdx, image) => dispatch({ type: "SET_PHOTO", photoIdx, image })
+    addPhotos: ({ photoIdx, contestant }) => dispatch(searchPhotos({ photoIdx, contestant })),
   }
 }
 

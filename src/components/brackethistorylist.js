@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from "lodash";
-import { Grid, Header, Segment } from 'semantic-ui-react'
+import { Grid, Header } from 'semantic-ui-react'
 import Page from "./page"
 import BracketHistory from './brackethistory'
 import ContestantGroupHistory from './contestantgrouphistory'

@@ -11,18 +11,19 @@ const mapStateToProps = (state, ownProps) => {
     bracketId: ownProps.data.bracketId,
     votes: state.totalVotes.votes,
     admin: state.voting.admin,
-    round: state.voting.currentRound
+    round: state.voting.currentRound,
+    userId: state.currentUser.id
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   let bracketId = ownProps.data.bracketId;
   return {
-    onClose: () => {
-      dispatch(close(bracketId))
+    onClose: (userId) => {
+      dispatch(close({ bracketId, userId }))
     },
-    pollRound: (round) => {
-      dispatch(pollEndRound(bracketId, round));
+    pollRound: ({ round, userId }) => {
+      dispatch(pollEndRound({ bracketId, round, userId }));
     }
   }
 }
