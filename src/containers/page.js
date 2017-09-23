@@ -3,7 +3,7 @@ import PageComponent from '../components/page'
 
 const mapStateToProps = (state) => {
   return {
-    votingId: state.voting.votingId,
+    bracketId: state.voting.bracketId,
     title: state.voting.title,
     currentRound: state.voting.currentRound,
     totalRounds: state.voting.totalRounds

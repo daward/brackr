@@ -7,7 +7,7 @@ import { self } from '../constants'
 const BracketHistory = ({ bracket }) => {
   let text = "Voting complete"
   if(!bracket.results) {
-    text = `Round ${bracket.currentRound} of ${bracket.totalRounds}`
+    text = `Round ${bracket.currentRound} of ${bracket.numberOfRounds}`
   }
 
   return (
@@ -19,7 +19,7 @@ const BracketHistory = ({ bracket }) => {
         {text}
       </Segment>
       <Segment>
-        <Share votingId={bracket.votingId} />
+        <Share votingId={bracket.id} />
       </Segment>
     </Segment.Group>
   );

@@ -8,7 +8,7 @@ class BracketClient {
       headers: {
         "X-User-ID": userId
       },
-      url: `${endpoint}/bracket/${bracketId}/round/current`,
+      url: `${endpoint}/brackets/${bracketId}/round/current`,
       method: "GET"
     }
     return rp(options)
@@ -31,7 +31,7 @@ class BracketClient {
       headers: {
         "X-User-ID": userId
       },
-      url: `${endpoint}/bracket/${bracketId}`,
+      url: `${endpoint}/brackets/${bracketId}`,
       method: "GET",
     })
       .then(response => JSON.parse(response));
@@ -42,7 +42,7 @@ class BracketClient {
       headers: {
         "X-User-ID": userId
       },
-      url: `${endpoint}/bracket/${bracketId}/tournament/${tournamentId}`,
+      url: `${endpoint}/brackets/${bracketId}/tournament/${tournamentId}`,
       method: "GET"
     }
     return rp(options).then(response => JSON.parse(response))
@@ -53,7 +53,7 @@ class BracketClient {
       headers: {
         "X-User-ID": userId
       },
-      url: `${endpoint}/bracket`,
+      url: `${endpoint}/brackets`,
       method: "POST",
       json: { contestantGroupId }
     }
@@ -65,7 +65,7 @@ class BracketClient {
       headers: {
         "X-User-ID": userId
       },
-      url: `${endpoint}/bracket/${bracketId}/match/${matchId}/player/${winningSeed}`,
+      url: `${endpoint}/brackets/${bracketId}/match/${matchId}/player/${winningSeed}`,
       method: "POST",
       json: {}
     }
@@ -77,7 +77,7 @@ class BracketClient {
       headers: {
         "X-User-ID": userId
       },
-      url: `${endpoint}/bracket/${bracketId}/round/next`,
+      url: `${endpoint}/brackets/${bracketId}/round/next`,
       method: "POST",
       json: {}
     }
@@ -89,7 +89,20 @@ class BracketClient {
       headers: {
         "X-User-ID": userId
       },
-      url: `${endpoint}/bracket/${bracketId}/round/current`,
+      url: `${endpoint}/brackets/${bracketId}/round/current`,
+      method: "GET"
+    }
+    return rp(options).then(response => {
+      return JSON.parse(response);
+    });
+  }
+
+  getBrackets({ userId }) {
+    let options = {
+      headers: {
+        "X-User-ID": userId
+      },
+      url: `${endpoint}/brackets`,
       method: "GET"
     }
     return rp(options).then(response => JSON.parse(response));

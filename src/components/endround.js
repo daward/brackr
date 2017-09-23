@@ -39,7 +39,7 @@ class EndRound extends Component {
                 key: 'yes',
                 content: 'Yes',
                 color: 'green',
-                onClick: () => this.props.onClose({ bracketId: this.props.bracketId, userId: this.props.userId })
+                onClick: () => this.props.onClose(this.props.userId)
               },
             ]} />
         </Grid.Column>

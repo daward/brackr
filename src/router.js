@@ -6,13 +6,14 @@ import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom';
 
 class Router {
-  constructor(store) {
+  constructor({ store, login }) {
     this.routes = [];
     this.store = store;
     // Listen for changes to the current location. 
     this.unlisten = history.listen((location, action) => {
       this.renderApp(location.pathname);
     })
+    this.login = login;
   }
 
   renderApp(path) {
@@ -30,7 +31,8 @@ class Router {
 
   route(path) {
     let route = _.find(this.routes, route => !!route.template.match(path));
-    let data = route.template.match(path);
+    let data = route.template.match(path) || {};
+    data.login = this.login();
     if (route.onEnter) {
       route.onEnter(data);
     }

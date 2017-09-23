@@ -5,15 +5,15 @@ import Page from "./page"
 import BracketHistory from './brackethistory'
 import ContestantGroupHistory from './contestantgrouphistory'
 
-const BracketHistoryList = ({ brackets, contestantGroups }) => {
+const BracketHistoryList = ({ brackets, contestantGroupRefs }) => {
   return (
     <Page title="Your Brackets">
       <Grid centered>
         <Grid.Row>
           <Grid.Column textAlign="center" mobile={16} tablet={10} computer={6}>
             <Header attached="top" inverted>In Progress</Header>
-            {_.map(contestantGroups, contestantGroup => (
-              <ContestantGroupHistory key={contestantGroup.id} contestantGroup={contestantGroup} />))}
+            {_.map(contestantGroupRefs, contestantGroupRef => (
+              <ContestantGroupHistory key={contestantGroupRef.id} contestantGroupRef={contestantGroupRef} />))}
 
             <Header attached="top" inverted>Voting</Header>
             {_.map(brackets, bracket => (<BracketHistory key={bracket.id} bracket={bracket} />))}

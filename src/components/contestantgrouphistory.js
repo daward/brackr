@@ -3,11 +3,11 @@ import Link from './link'
 import { Segment } from 'semantic-ui-react'
 import { self } from '../constants'
 
-const ContestantGroupHistory = ({ contestantGroup }) => {
+const ContestantGroupHistory = ({ contestantGroupRef }) => {
   return (
     <Segment.Group horizontal compact>
       <Segment>
-        <Link to={`${self}/create/${contestantGroup.id}`}>{contestantGroup.title}</Link >
+        <Link to={`${self}/create/${contestantGroupRef.id}`}>{contestantGroupRef.title}</Link >
       </Segment>
     </Segment.Group>
   );

@@ -31,6 +31,7 @@ function queryRound({ dispatch, bracketId, startEvent, finishEvent, userId }) {
   dispatch({ type: startEvent, bracketId });
   return bracketClient.getCurrentRound({ bracketId, userId })
     .then(response => {
+      console.log(response);
       return dispatch({
         type: finishEvent,
         response

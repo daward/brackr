@@ -4,7 +4,7 @@ import BracketHistoryList from '../components/brackethistorylist'
 const mapStateToProps = state => {
   return {
     brackets: state.bracketHistory.brackets,
-    contestantGroups: state.contestantGroupHistory.contestantGroups
+    contestantGroupRefs: state.contestantGroupHistory.contestantGroups
   }
 }
 

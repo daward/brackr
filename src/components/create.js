@@ -5,7 +5,7 @@ import CreateEntrySet from './createentryset'
 
 const Create = ({ contestantGroupId, contestants, title, userId, onContestantChange, save, start, addPhotos, changeTitle }) => {
   return (
-    <Page title="Create a bracket">
+    <Page title="Create a bracket" userId={userId}>
       <Grid centered padded doubling >
         <Grid.Row>
           <Grid.Column mobile={14} tablet={8} computer={6}>

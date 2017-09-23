@@ -14,6 +14,7 @@ import EndRound from "./containers/endround"
 import BracketHistory from "./containers/brackethistory"
 import Round from "./containers/round"
 import Router from './router'
+import { userData } from './clients/userdata'
 
 import { loadRound } from './actions/voting'
 import { loadBracketHistory } from './actions/brackethistory'
@@ -31,23 +32,32 @@ let store = createStore(
   )
 );
 
-const router = new Router(store);
+const router = new Router({
+  store, login: () => userData.get()
+});
 
 router.add({
   route: "/",
-  component: () => (<BracketNav />)
+  component: () => (<BracketNav />),
+  dispatchOnEnter: () => dispatch => dispatch({ type: "LOAD_USER" })
 })
 
 router.add({
   route: "/create",
   component: () => (<Contestants />),
-  dispatchOnEnter: data => startNewContestantGroup(data)
+  dispatchOnEnter: [
+    () => dispatch => dispatch({ type: "LOAD_USER" }),
+    data => startNewContestantGroup(data)
+  ]
 })
 
 router.add({
   route: "/create/:contestantGroupId",
   component: data => (<Contestants data={data} />),
-  dispatchOnEnter: data => loadContestantGroup({ contestantGroupId: data.contestantGroupId })
+  dispatchOnEnter: [
+    () => dispatch => dispatch({ type: "LOAD_USER" }),
+    data => loadContestantGroup({ contestantGroupId: data.contestantGroupId })
+  ]
 })
 
 router.add({
@@ -80,7 +90,10 @@ router.add({
 router.add({
   route: "/brackets",
   component: data => (<BracketHistory />),
-  dispatchOnEnter: [() => loadBracketHistory(), () => loadContestantGroupHistory()]
+  dispatchOnEnter: [
+    () => dispatch => dispatch({ type: "LOAD_USER" }),
+    (data) => loadBracketHistory(data.login.id),
+    (data) => loadContestantGroupHistory(data.login.id)]
 })
 
 router.renderApp(window.location.pathname); //render page the first time 

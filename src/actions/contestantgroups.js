@@ -3,9 +3,11 @@ import browserHistory from '../history'
 import contestantGroupClient from '../clients/contestantgroupclient'
 import bracketClient from '../clients/bracketclient'
 import { contestantGroupData, bracketData } from '../clients/localidentifiers'
+import { userData } from '../clients/userdata'
 
 export function loadContestantGroup({ contestantGroupId, userId }) {
   return dispatch => {
+    userId = userId || userData.get().id;
     contestantGroupClient.get({ contestantGroupId, userId })
       .then(contestantGroup => {
         dispatch({ type: "CONTESTANT_GROUP_LOADED", contestantGroup })

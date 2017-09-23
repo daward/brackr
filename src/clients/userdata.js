@@ -16,7 +16,9 @@ class UserData {
       return {
         get: () => cookies.get(name),
         set: (value) => setCookie(name, value),
-        remove: () => cookies.remove(name)
+        remove: () => {
+          return cookies.remove(name, { path: '/' });
+        }
       }
     }
 
@@ -44,16 +46,27 @@ class UserData {
 
   get() {
     let user = this.user.get();
-    return {
-      id: user.split("|")[1],
-      loginType: user.split("|")[0],
-      name: this.username.get()
+    if (user) {
+      return {
+        id: user.split("|")[1],
+        loginType: user.split("|")[0],
+        name: this.username.get()
+      }
+    } else {
+      return {
+        id: undefined,
+        name: ""
+      }
     }
   }
 
   delete() {
     this.user.remove();
     this.username.remove();
+  }
+
+  isLoggedIn() {
+    return this.user.get();
   }
 }
 

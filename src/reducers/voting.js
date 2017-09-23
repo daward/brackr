@@ -38,8 +38,7 @@ const voting = (state = {
         currentMatch,
         currentRound: round.currentRound,
         totalRounds: round.totalRounds,
-        votingId: round.votingId,
-        admin: state.bracketId !== round.votingId,
+        admin: round.admin,
         title: round.title
       });
 

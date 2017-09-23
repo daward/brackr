@@ -1,18 +1,12 @@
 import P from 'bluebird'
 import _ from 'lodash'
 import contestantGroupClient from '../clients/contestantgroupclient'
-import { contestantGroupData } from '../clients/localidentifiers'
+import { userData } from '../clients/userdata'
 
 export function loadContestantGroupHistory(userId) {
   return dispatch => {
-    let contestantGroupIds = contestantGroupData.getAll();
-
-    P.map(contestantGroupIds, contestantGroupId => {
-      return contestantGroupClient.get({ contestantGroupId, userId }).then(result => {
-        result.id = contestantGroupId
-        return result;
-      })
-    })
+    userId = userId || userData.get().id;
+    return contestantGroupClient.getContestantGroups({ userId })
       .then(results => {
         dispatch({
           type: 'CONTESTANT_GROUPS_LOADED',
