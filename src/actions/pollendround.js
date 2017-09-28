@@ -7,8 +7,8 @@ export function pollEndRound({ bracketId, polledRound, userId }) {
       // get the round we're in from the server
       bracketClient.getRound({ bracketId, userId })
         .then(roundData => {
-          // if the round has advanced since we started polling and isn't over, we'll want to advance
-          if (roundData.currentRound > getState().voting.currentRound && !roundData.results) {
+          // if the round has advanced, or the tournament is over, we'll want to move on
+          if (roundData.currentRound > getState().voting.currentRound || roundData.results) {
             browserHistory.push(`/bracket/${bracketId}`);
           } else { // if it hasn't, update the votes and wait
             setTimeout(refresh, 10000);

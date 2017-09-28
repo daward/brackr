@@ -61,11 +61,11 @@ router.add({
 })
 
 router.add({
-  route: "/bracket/:bracketId/endround",
+  route: "/bracket/:bracketId/endround/:roundNumber",
   component: (data) => (<EndRound data={data} />),
   dispatchOnEnter: [
     () => dispatch => dispatch({ type: "LOAD_USER" }),
-    data => loadRound({ bracketId: data.bracketId })
+    data => loadRound({ bracketId: data.bracketId, roundNumber: data.roundNumber })
   ]
 })
 

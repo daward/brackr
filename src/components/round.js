@@ -23,7 +23,7 @@ const Round = ({ round, idx, bracketId, onRoundChange, onReturn }) => {
         <Grid.Row>
           <Grid.Column textAlign="center" mobile={16} tablet={8} computer={6}>
             {_.map(round, match => (
-              <Segment vertical fluid textAlign="center">
+              <Segment vertical textAlign="center" key={`${match[0].data.seed}-${match[1].data.seed}`}>
                 <MatchPlayer player={match[0]} bye={match[1].data.slug} />
                 <MatchPlayer player={match[1]} bye={match[0].data.slug} />
               </Segment>

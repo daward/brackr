@@ -1,5 +1,3 @@
-import P from 'bluebird'
-import _ from 'lodash'
 import bracketClient from '../clients/bracketclient'
 
 export function loadBracketHistory(userId) {

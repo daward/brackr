@@ -47,7 +47,6 @@ class EndRound extends Component {
     } else {
       content = (<Grid.Column textAlign="center" width={6}>
         <Message icon>
-          <Icon name='check' />
           <Message.Content>
             <Message.Header>Thanks for voting! </Message.Header>
             Votes are still being collected.  This page will update automatically when the next round starts.

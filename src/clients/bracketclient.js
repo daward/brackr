@@ -20,7 +20,7 @@ class BracketClient {
       headers: {
         "X-User-ID": userId
       },
-      url: `${endpoint}/bracket/${bracketId}/next`,
+      url: `${endpoint}/brackets/${bracketId}/next`,
       method: "POST",
       json: {}
     })

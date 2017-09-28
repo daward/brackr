@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
       active: false,
       roundOver: state.voting.roundOver,
+      roundNumber: state.voting.currentRound,
       bracketId,
       userId: state.currentUser.id
     }
@@ -20,6 +21,7 @@ const mapStateToProps = (state, ownProps) => {
     active: true,
     roundOver: state.voting.roundOver,
     bracketId: bracketId,
+    roundNumber: state.voting.currentRound,
     userId: state.currentUser.id,
     players,
     matchId

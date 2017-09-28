@@ -1,27 +1,8 @@
-
-import Cookies from 'universal-cookie'
 import uuidv4 from 'uuid/v4';
-const cookies = new Cookies();
+import { cookieMaker } from './cookiemaker'
 
 class UserData {
   constructor() {
-    const setCookie = (key, value) => {
-      var expireDate = new Date();
-      expireDate.setDate(expireDate.getDate() + 2);
-      cookies.set(key, value, { path: '/', expires: expireDate });
-      return value;
-    }
-
-    const cookieMaker = name => {
-      return {
-        get: () => cookies.get(name),
-        set: (value) => setCookie(name, value),
-        remove: () => {
-          return cookies.remove(name, { path: '/' });
-        }
-      }
-    }
-
     this.username = cookieMaker("username");
     this.user = cookieMaker("user");
     this.guestid = cookieMaker("guestid");
@@ -48,7 +29,7 @@ class UserData {
     let user = this.user.get();
     if (user) {
       return {
-        id: user.split("|")[1],
+        id: user,
         loginType: user.split("|")[0],
         name: this.username.get()
       }

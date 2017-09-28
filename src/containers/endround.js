@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => {
     bracketId: ownProps.data.bracketId,
     votes: state.totalVotes.votes,
     admin: state.voting.admin,
-    round: state.voting.currentRound,
+    round: ownProps.roundNumber,
     userId: state.currentUser.id
   }
 }
@@ -22,8 +22,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onClose: (userId) => {
       dispatch(close({ bracketId, userId }))
     },
-    pollRound: ({ round, userId }) => {
-      dispatch(pollEndRound({ bracketId, round, userId }));
+    pollRound: ({ userId }) => {
+      dispatch(pollEndRound({ bracketId, round: ownProps.roundNumber, userId }));
     }
   }
 }
