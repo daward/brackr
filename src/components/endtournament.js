@@ -19,11 +19,11 @@ const EndTournament = ({ winners, admin, bracketId, userId, onRestart, onRerun }
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {winners.map((row, index) => (
-                <Table.Row key={index}>
-                  <Table.Cell>{index + 1}</Table.Cell>
-                  <Table.Cell>{row.text}</Table.Cell>
-                  <Table.Cell><Link toPath={`/bracket/${bracketId}/tournament/${index}`}>View</Link></Table.Cell>
+              {winners.map((row) => (
+                <Table.Row key={row.tournamentNumber}>
+                  <Table.Cell>{row.tournamentNumber + 1}</Table.Cell>
+                  <Table.Cell>{row.choice.text}</Table.Cell>
+                  <Table.Cell><Link toPath={`/bracket/${bracketId}/tournament/${row.tournamentNumber}`}>View</Link></Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>

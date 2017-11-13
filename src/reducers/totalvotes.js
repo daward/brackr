@@ -14,9 +14,8 @@ const totalVotes = (state = { votes: 0 }, action) => {
     // when we check a round, we want to know two things: how many votes and if the round
     // has advanced
     case 'CHECK_ROUND':
-      const votes = _.sum(_.flatten(_.map(action.response.matches, match => (match.scores))))
       return Object.assign({}, state, {
-        votes
+        votes: action.response.totalVotes
       });
 
     case 'CHANGE_BRACKET_ID':

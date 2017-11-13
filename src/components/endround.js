@@ -6,15 +6,18 @@ class EndRound extends Component {
   constructor(props) {
     super();
     if (props && props.pollRound && props.round) {
-      props.pollRound({ round: props.round, userId: props.userId });
+      // props.pollRound({ round: props.round, userId: props.userId });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    nextProps.pollRound({ round: nextProps.round, userId: nextProps.userId });
+    // nextProps.pollRound({ round: nextProps.round, userId: nextProps.userId });
   }
 
   render() {
+    if(!this.props.active) {
+      return <span/>
+    }
     let content;
     if (this.props.admin) {
       content = (
@@ -56,13 +59,11 @@ class EndRound extends Component {
     }
 
     return (
-      <Page>
-        <Grid centered padded>
-          <Grid.Row stretched>
-            {content}
-          </Grid.Row>
-        </Grid>
-      </Page>
+      <Grid centered padded>
+        <Grid.Row stretched>
+          {content}
+        </Grid.Row>
+      </Grid>
     );
   }
 }

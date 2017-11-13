@@ -8,6 +8,7 @@ const mapStateToProps = (state, ownProps) => {
   // one for the overall voting total, and one for our personal votes
   // we can dispatch an action that keeps the former up-to-date 
   return {
+    active: state.voting.matches.length === 0 && !state.voting.winners,
     bracketId: ownProps.data.bracketId,
     votes: state.totalVotes.votes,
     admin: state.voting.admin,

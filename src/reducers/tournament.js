@@ -15,25 +15,20 @@ const tournament = (state = { currentRoundIdx: 0, currentRound: [], rounds: [] }
     case 'TOURNAMENT_LOADED':
       let rounds = _.map(action.response.rounds, round => {
         return _.map(round, match => {
-          let winnerIdx;
-          if (match.scores[0] >= match.scores[1]) {
-            winnerIdx = 0;
-          } else {
-            winnerIdx = 1;
-          }
-
-          return [
+          match.winner.data.seed = match.winner.seed;
+          match.loser.data.seed = match.loser.seed;
+          return _.sortBy([
             {
-              data: match.players[0],
-              score: match.scores[0],
-              winner: winnerIdx === 0
+              data: match.winner.data,
+              score: match.winner.score,
+              winner: true
             },
             {
-              data: match.players[1],
-              score: match.scores[1],
-              winner: winnerIdx === 1
+              data: match.loser.data,
+              score: match.loser.score,
+              winner: false
             },
-          ]
+          ], "data.seed");
         })
       })
 

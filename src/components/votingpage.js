@@ -1,13 +1,15 @@
 import MatchVote from "../containers/matchvote"
 import EndTournament from "../containers/endtournament"
+import EndRound from "../containers/endround"
 import React from 'react'
 import Page from '../containers/page'
 
-const VotingPage = ({data}) => {
+const VotingPage = ({ data }) => {
   return (
     <Page>
-      <MatchVote data={data}/>
-      <EndTournament data={data}/>
+      <EndRound data={data} />
+      <MatchVote data={data} />
+      <EndTournament data={data} />
     </Page>);
 }
 

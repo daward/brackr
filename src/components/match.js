@@ -2,11 +2,7 @@ import React from 'react';
 import { Card, Grid, Divider, Image } from 'semantic-ui-react'
 import browserHistory from "../history"
 
-const Match = ({ active, roundOver, roundNumber, bracketId, userId, players, matchId, onVote }) => {
-  if (roundOver) {
-    browserHistory.push(`/bracket/${bracketId}/endround/${roundNumber}`)
-  }
-
+const Match = ({ active, roundNumber, bracketId, userId, players, matchId, onVote }) => {
   if (!active) {
     return (<span />)
   }

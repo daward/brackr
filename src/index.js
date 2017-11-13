@@ -10,7 +10,6 @@ import 'semantic-ui-css/semantic.min.css'
 import BracketNav from './containers/bracketnav'
 import Contestants from './containers/contestants'
 import VotingPage from './components/votingpage'
-import EndRound from "./containers/endround"
 import BracketHistory from "./containers/brackethistory"
 import Round from "./containers/round"
 import Router from './router'
@@ -57,15 +56,6 @@ router.add({
   dispatchOnEnter: [
     () => dispatch => dispatch({ type: "LOAD_USER" }),
     data => loadContestantGroup({ contestantGroupId: data.contestantGroupId })
-  ]
-})
-
-router.add({
-  route: "/bracket/:bracketId/endround/:roundNumber",
-  component: (data) => (<EndRound data={data} />),
-  dispatchOnEnter: [
-    () => dispatch => dispatch({ type: "LOAD_USER" }),
-    data => loadRound({ bracketId: data.bracketId, roundNumber: data.roundNumber })
   ]
 })
 
